@@ -2,7 +2,6 @@
 # Usage:  powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1
 # Requires: gh authenticated (gh auth status) with `repo` scope.
 
-$ErrorActionPreference = "Stop"
 $root = Split-Path $PSScriptRoot -Parent
 $repoUrl = "https://github.com/pdrbala/pedro-portfolio.git"
 
@@ -11,14 +10,16 @@ Write-Host "Building static export (basePath /pedro-portfolio)..." -ForegroundCo
 $env:GITHUB_PAGES = "true"
 npm run build
 Remove-Item Env:\GITHUB_PAGES
+if ($LASTEXITCODE -ne 0) { Write-Error "Build failed"; exit 1 }
 
 Write-Host "Publishing out/ to gh-pages..." -ForegroundColor Cyan
 Set-Location (Join-Path $root "out")
+# fresh repo each deploy, so remotes/branches are deterministic
+if (Test-Path .git) { Remove-Item -Recurse -Force .git }
 git init -b gh-pages -q
 git config commit.gpgsign false
 git add -A
 git -c commit.gpgsign=false commit -q -m ("Deploy " + (Get-Date -Format "yyyy-MM-dd HH:mm"))
-git remote remove origin 2>$null
 git remote add origin $repoUrl
 git push -f origin gh-pages
 Set-Location $root
