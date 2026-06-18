@@ -1,26 +1,185 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ece8df;
+  --background-alt: #e3ded2;
+  --foreground: #141210;
+  --muted: #76705f;
+  --border: rgba(20, 18, 16, 0.5);
+  --hairline: rgba(20, 18, 16, 0.16);
+  --grid-line: rgba(20, 18, 16, 0.06);
+  --accent: #e10600;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-hairline: var(--hairline);
+  --color-accent: var(--accent);
+  --font-display: var(--font-anton), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* hide the native cursor only when the custom one is active (fine pointer, motion on) */
+body.cursor-hidden,
+body.cursor-hidden * {
+  cursor: none !important;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--background);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Thin editorial scrollbar — ink on paper, no chrome */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--foreground);
+  border: 4px solid var(--background);
+}
+
+@layer components {
+  /* Small uppercase metadata text — the editorial "caption" voice */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+
+  /* Giant condensed display — Anton. Built to be huge and bleed off edges. */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.005em;
+    line-height: 0.82;
+  }
+
+  /* Tight grotesque headings for mid-scale titles */
+  .heading {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+  }
+
+  /* Hard-edged brutalist buttons — no radius, inverse on hover */
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1.05rem 1.6rem;
+    border: 1px solid var(--foreground);
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  }
+  .btn-fill {
+    background: var(--foreground);
+    color: var(--background);
+  }
+  .btn-fill:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--background);
+  }
+  .btn-line:hover {
+    background: var(--foreground);
+    color: var(--background);
+  }
+
+  /* Film-grain texture, applied once as a fixed overlay */
+  .noise {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
+  }
+}
+
+/* --- Reel motif micro-animations (each tile moves within itself) --- */
+@keyframes pg-bar {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+@keyframes pg-rock {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+@keyframes pg-breathe {
+  0%, 100% { transform: scale(0.84); }
+  50% { transform: scale(1.05); }
+}
+@keyframes pg-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes pg-slide-y {
+  to { transform: translateY(-16px); }
+}
+@keyframes pg-pulse {
+  0%, 100% { transform: scale(0.6); opacity: 0.55; }
+  50% { transform: scale(1); opacity: 1; }
+}
+
+.m-anim {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform;
+}
+.m-bar { animation: pg-bar 1.4s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom; }
+.m-rock { animation: pg-rock 4.5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.m-breathe { animation: pg-breathe 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.m-spin { animation: pg-spin 9s linear infinite; transform-box: fill-box; transform-origin: center; }
+.m-slide { animation: pg-slide-y 1.6s linear infinite; }
+.m-pulse { animation: pg-pulse 2.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
