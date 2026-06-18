@@ -37,8 +37,17 @@ const base = [
     featured: true,
   },
   {
-    slug: "eric-goncalves",
+    slug: "monogamia-capitalista",
     index: "02",
+    year: "2025",
+    cover: "/work/monogamia-01.jpg",
+    coverW: 941,
+    coverH: 1672,
+    featured: false,
+  },
+  {
+    slug: "eric-goncalves",
+    index: "03",
     year: "2025",
     cover: "/work/eric-01.jpg",
     coverW: 1219,
@@ -47,7 +56,7 @@ const base = [
   },
   {
     slug: "costa-costa",
-    index: "03",
+    index: "04",
     year: "2024",
     cover: "/work/costa-01.jpg",
     coverW: 1600,
@@ -87,6 +96,33 @@ const content: Record<Lang, Record<Slug, Content>> = {
             body: "Charts, a 6×1 day breakdown and a timeline turn statistics into an argument, not decoration.",
           },
           { kind: "image", src: "/work/jornal-03.jpg", alt: "Infographic page — how much time is left", w: 1200, h: 1697 },
+        ],
+      },
+    },
+    "monogamia-capitalista": {
+      title: "Monogamia Capitalista",
+      coverAlt: "Monogamia Capitalista book cover",
+      type: "Editorial / Book cover",
+      tags: ["Editorial", "Cover", "Print"],
+      description:
+        "Cover for a critical essay on love as property — vintage agitprop type, woodcut texture and a heart-shaped padlock.",
+      caseStudy: {
+        intro:
+          "A book that frames monogamy as ownership deserves a cover that looks like old propaganda. Distressed display type, a constructivist navy-and-red palette and a heart-shaped padlock — romance as a contract.",
+        role: "Cover design, typography, art direction",
+        deliverables: ["Cover", "Typography", "Mockup"],
+        blocks: [
+          {
+            kind: "text",
+            heading: "Agitprop, updated",
+            body: "Worn letterpress type, folk ornaments and a navy-and-red palette borrow the language of vintage political pamphlets — then turn it on romance.",
+          },
+          { kind: "image", src: "/work/monogamia-02.jpg", alt: "Monogamia Capitalista flat cover", w: 1055, h: 1491 },
+          {
+            kind: "text",
+            heading: "One loaded symbol",
+            body: "A heart-shaped padlock says everything the title argues: affection, possession and control, locked together.",
+          },
         ],
       },
     },
@@ -172,6 +208,33 @@ const content: Record<Lang, Record<Slug, Content>> = {
             body: "Gráficos, a divisão de um dia na 6×1 e uma linha do tempo transformam estatística em argumento, não em enfeite.",
           },
           { kind: "image", src: "/work/jornal-03.jpg", alt: "Página de infográfico — quanto tempo sobra", w: 1200, h: 1697 },
+        ],
+      },
+    },
+    "monogamia-capitalista": {
+      title: "Monogamia Capitalista",
+      coverAlt: "Capa do livro Monogamia Capitalista",
+      type: "Editorial / Capa de livro",
+      tags: ["Editorial", "Capa", "Impresso"],
+      description:
+        "Capa para um ensaio crítico sobre o amor como posse — tipografia de agitprop, textura xilogravada e um cadeado-coração.",
+      caseStudy: {
+        intro:
+          "Um livro que trata a monogamia como propriedade pede uma capa com cara de propaganda antiga. Tipografia desgastada, paleta construtivista azul e vermelho e um cadeado em forma de coração — o romance como contrato.",
+        role: "Design de capa, tipografia, direção de arte",
+        deliverables: ["Capa", "Tipografia", "Mockup"],
+        blocks: [
+          {
+            kind: "text",
+            heading: "Agitprop, atualizado",
+            body: "Tipografia gasta, ornamentos populares e uma paleta azul e vermelho tomam emprestada a linguagem dos panfletos políticos antigos — e a viram contra o romance.",
+          },
+          { kind: "image", src: "/work/monogamia-02.jpg", alt: "Capa plana de Monogamia Capitalista", w: 1055, h: 1491 },
+          {
+            kind: "text",
+            heading: "Um símbolo carregado",
+            body: "Um cadeado em forma de coração diz tudo o que o título argumenta: afeto, posse e controle, trancados juntos.",
+          },
         ],
       },
     },

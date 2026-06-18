@@ -64,9 +64,13 @@ export function WorkGrid() {
         </Reveal>
       )}
 
-      <div className="mt-14 grid gap-y-14 md:mt-20 md:grid-cols-2 md:gap-x-10">
+      <div className="mt-14 grid items-start gap-y-14 md:mt-20 md:grid-cols-2 md:gap-x-10">
         {rest.map((project) => (
-          <WorkCard key={project.slug} project={project} aspectClass="aspect-4/5 md:aspect-4/3" />
+          <WorkCard
+            key={project.slug}
+            project={project}
+            aspectClass={project.coverH > project.coverW ? "aspect-3/4" : "aspect-4/5 md:aspect-4/3"}
+          />
         ))}
       </div>
     </section>
