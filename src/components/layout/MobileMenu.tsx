@@ -2,6 +2,8 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ArrowUpRight } from "lucide-react";
 import { useEffect, type MouseEvent } from "react";
 import { NAV } from "@/components/layout/Header";
 import { useLang } from "@/i18n/LanguageProvider";
@@ -20,6 +22,8 @@ export function MobileMenu({
   onClose: () => void;
 }) {
   const { t, lang, setLang } = useLang();
+  const pathname = usePathname();
+  const onMotion = pathname.startsWith("/motion");
 
   useEffect(() => {
     if (!open) return;
@@ -69,6 +73,14 @@ export function MobileMenu({
           </nav>
 
           <div className="flex flex-col gap-5">
+            <Link
+              href={onMotion ? "/" : "/motion"}
+              onClick={onClose}
+              className="btn btn-line flex items-center justify-center gap-2"
+            >
+              {onMotion ? t.motion.toEditorial : t.motion.toMotion}
+              <ArrowUpRight size={14} />
+            </Link>
             <div className="flex gap-px" role="group" aria-label="Language">
               {LANGS.map((l) => (
                 <button

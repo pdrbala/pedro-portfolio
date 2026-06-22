@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ArrowUpRight } from "lucide-react";
 import { useState, type MouseEvent } from "react";
 import { useLenis } from "@/components/providers/SmoothScrollProvider";
 import { MobileMenu } from "@/components/layout/MobileMenu";
@@ -39,6 +40,11 @@ export function Header() {
   const lenis = useLenis();
   const { t } = useLang();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // discreet cross-link between the editorial (home) and motion worlds
+  const onMotion = pathname.startsWith("/motion");
+  const crossHref = onMotion ? "/" : "/motion";
+  const crossLabel = onMotion ? t.motion.toEditorial : t.motion.toMotion;
 
   function goTo(e: MouseEvent<HTMLAnchorElement>, hash: string) {
     setMenuOpen(false);
@@ -79,6 +85,13 @@ export function Header() {
                   {t.nav[link.key]}
                 </Link>
               ))}
+              <Link
+                href={crossHref}
+                className="label group flex items-center gap-1.5 border-l border-foreground px-6 text-accent transition-colors hover:bg-accent hover:text-background"
+              >
+                {crossLabel}
+                <ArrowUpRight size={12} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
               <LangToggle className="flex items-center border-l border-foreground px-4" />
             </nav>
 

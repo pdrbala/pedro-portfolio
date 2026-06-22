@@ -16,6 +16,14 @@ export const dict = {
     },
     work: { label: "Selected Work", lead: "Editorial, identity and graphic work.", featured: "Featured" },
     reel: { label: "In motion" },
+    motion: {
+      label: "Motion",
+      lead: "Selected video & motion — films, motion graphics and edits.",
+      watch: "Watch",
+      toMotion: "Motion",
+      toEditorial: "Editorial",
+      count: "videos",
+    },
     contact: {
       label: "Contact",
       reply: "Replies within 48h",
@@ -48,6 +56,14 @@ export const dict = {
     },
     work: { label: "Trabalhos Selecionados", lead: "Editorial, identidade e peças gráficas com propósito.", featured: "Destaque" },
     reel: { label: "Em movimento" },
+    motion: {
+      label: "Motion",
+      lead: "Vídeo e motion selecionados — filmes, motion graphics e edições.",
+      watch: "Assistir",
+      toMotion: "Motion",
+      toEditorial: "Editorial",
+      count: "vídeos",
+    },
     contact: {
       label: "Contato",
       reply: "Respondo em até 48h",
