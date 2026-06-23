@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
-import { Play, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Volume2, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { useLang } from "@/i18n/LanguageProvider";
@@ -12,22 +11,37 @@ import { asset, cn } from "@/lib/utils";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-function PlayBadge({ small }: { small?: boolean }) {
+/** Muted loop that plays only while in view (saves CPU/battery); respects reduced motion. */
+function VideoLoop({ item }: { item: MotionItem }) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) v.play().catch(() => {});
+        else v.pause();
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <span
-      className={cn(
-        "pointer-events-none absolute inset-0 flex items-center justify-center",
-      )}
+    <video
+      ref={ref}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      poster={asset(item.poster)}
+      className="h-full w-full object-cover transition-transform duration-[1.1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
     >
-      <span
-        className={cn(
-          "flex items-center justify-center rounded-full bg-background/85 text-foreground backdrop-blur-sm transition-transform duration-300 group-hover:scale-110",
-          small ? "size-12" : "size-16",
-        )}
-      >
-        <Play className="ml-0.5 fill-current" size={small ? 18 : 24} />
-      </span>
-    </span>
+      <source src={asset(item.src)} type="video/mp4" />
+    </video>
   );
 }
 
@@ -41,33 +55,16 @@ function Card({
   onOpen: (i: MotionItem) => void;
 }) {
   return (
-    <button
-      type="button"
-      data-cursor="view"
-      onClick={() => onOpen(item)}
-      className="group block w-full text-left"
-    >
+    <button type="button" data-cursor="view" onClick={() => onOpen(item)} className="group block w-full text-left">
       <div className="flex items-baseline justify-between gap-4 border-t border-foreground pt-2.5 pb-4">
         <span className="label text-foreground">{item.year}</span>
         <span className="label truncate text-muted">{item.type}</span>
       </div>
-      <div
-        className={cn(
-          "relative overflow-hidden bg-foreground/5",
-          feature ? "aspect-[1200/502]" : "aspect-[9/16]",
-        )}
-      >
-        <Image
-          src={asset(item.poster)}
-          alt={item.title}
-          fill
-          sizes={feature ? "100vw" : "(min-width: 768px) 40vw, 50vw"}
-          className="object-cover transition-transform duration-[1.1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
-        />
-        <span className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent opacity-60" />
-        <PlayBadge small={!feature} />
+      <div className={cn("relative overflow-hidden bg-foreground/10", feature ? "aspect-video" : "aspect-[9/16]")}>
+        <VideoLoop item={item} />
+        <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-foreground/25 to-transparent opacity-50" />
       </div>
-      <div className="mt-4 flex items-start justify-between gap-4">
+      <div className="mt-4">
         <h3 className="heading text-[clamp(1.3rem,2.4vw,2rem)] transition-colors duration-300 group-hover:text-accent">
           {item.title}
         </h3>
@@ -101,9 +98,7 @@ export function MotionShowcase() {
       </SectionLabel>
 
       <Reveal blur={false} y={16} className="mt-6">
-        <p className="heading max-w-2xl text-[clamp(1.4rem,3vw,2.4rem)] text-foreground">
-          {t.motion.lead}
-        </p>
+        <p className="heading max-w-2xl text-[clamp(1.4rem,3vw,2.4rem)] text-foreground">{t.motion.lead}</p>
       </Reveal>
 
       {feature && (
@@ -149,15 +144,20 @@ export function MotionShowcase() {
                   : "aspect-video max-w-5xl",
               )}
             >
-              <iframe
+              <video
                 key={active.slug}
-                src={`https://drive.google.com/file/d/${active.id}/preview`}
-                title={active.title}
-                allow="autoplay; fullscreen"
-                allowFullScreen
-                className="absolute inset-0 h-full w-full"
+                src={asset(active.src)}
+                poster={asset(active.poster)}
+                controls
+                autoPlay
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full bg-black"
               />
             </motion.div>
+            <p className="label absolute bottom-5 left-5 flex items-center gap-2 text-background/60">
+              <Volume2 size={13} /> {active.title}
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
