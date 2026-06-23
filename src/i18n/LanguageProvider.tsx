@@ -10,6 +10,8 @@ interface LangCtx {
   chosen: boolean;
   /** true after mount, so we can avoid SSR/hydration mismatch */
   mounted: boolean;
+  /** language suggested from the browser (pt-BR → pt), shown highlighted in the intro */
+  suggested: Lang;
   t: Dict;
 }
 
@@ -21,6 +23,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
   const [chosen, setChosen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [suggested, setSuggested] = useState<Lang>("en");
 
   useEffect(() => {
     // defer one tick to avoid a synchronous setState in the effect body
@@ -30,6 +33,13 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         setLangState(stored);
         setChosen(true);
         document.documentElement.lang = stored === "pt" ? "pt-BR" : "en";
+      } else {
+        // no choice yet: suggest from the browser, pre-fill content, keep the gate
+        const nav = (navigator.language || navigator.languages?.[0] || "en").toLowerCase();
+        const sug: Lang = nav.startsWith("pt") ? "pt" : "en";
+        setSuggested(sug);
+        setLangState(sug);
+        document.documentElement.lang = sug === "pt" ? "pt-BR" : "en";
       }
       setMounted(true);
     }, 0);
@@ -44,7 +54,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <Context.Provider value={{ lang, setLang, chosen, mounted, t: dict[lang] }}>
+    <Context.Provider value={{ lang, setLang, chosen, mounted, suggested, t: dict[lang] }}>
       {children}
     </Context.Provider>
   );

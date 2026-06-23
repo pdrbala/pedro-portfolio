@@ -33,7 +33,7 @@ function FlagChip({ lang }: { lang: Lang }) {
 }
 
 export function Intro({ children }: { children: ReactNode }) {
-  const { chosen, mounted, setLang } = useLang();
+  const { chosen, mounted, setLang, suggested, t } = useLang();
   const reduced = useReducedMotion();
   const open = !chosen; // covers pre-mount + first visit
 
@@ -48,10 +48,14 @@ export function Intro({ children }: { children: ReactNode }) {
     setLang(l);
   }
 
-  const rows: { lang: Lang; word: string; name: string; dim?: boolean }[] = [
+  const allRows: { lang: Lang; word: string; name: string }[] = [
     { lang: "en", word: "WELCOME", name: "English" },
-    { lang: "pt", word: "BEM-VINDO", name: "Português", dim: true },
+    { lang: "pt", word: "BEM-VINDO", name: "Português" },
   ];
+  // suggested (browser) language first; the other reads dimmed
+  const rows = [...allRows].sort((a, b) =>
+    a.lang === suggested ? -1 : b.lang === suggested ? 1 : 0,
+  );
 
   return (
     <IntroContext.Provider value={mounted && chosen}>
@@ -79,7 +83,7 @@ export function Intro({ children }: { children: ReactNode }) {
                 </div>
 
                 <ul className="flex flex-1 flex-col justify-center">
-                  {rows.map((r) => (
+                  {rows.map((r, i) => (
                     <li key={r.lang} className="border-t border-background/20 last:border-b">
                       <button
                         type="button"
@@ -88,18 +92,23 @@ export function Intro({ children }: { children: ReactNode }) {
                       >
                         <span
                           className={`display text-[clamp(2.4rem,11vw,9rem)] leading-[0.92] transition-colors duration-300 group-hover:text-accent ${
-                            r.dim ? "text-background/40" : "text-background"
+                            r.lang === suggested ? "text-background" : "text-background/40"
                           }`}
                         >
                           {r.word}
                         </span>
 
                         <span className="flex shrink-0 flex-col items-end gap-1.5">
-                          {/* the "Idioma / Language" label sits at WELCOME level */}
-                          {r.lang === "en" && (
+                          {/* the "Idioma / Language" label sits at the top row */}
+                          {i === 0 && (
                             <span className="label text-background/45">Idioma / Language</span>
                           )}
                           <span className="flex items-center gap-2 text-background transition-colors group-hover:text-accent">
+                            {r.lang === suggested && (
+                              <span className="label bg-accent px-1.5 py-0.5 text-background">
+                                {t.intro.suggested}
+                              </span>
+                            )}
                             <FlagChip lang={r.lang} />
                             <span className="label">{r.name}</span>
                             <ArrowUpRight

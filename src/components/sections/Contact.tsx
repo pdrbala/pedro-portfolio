@@ -1,12 +1,16 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Download } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
 import { useLang } from "@/i18n/LanguageProvider";
 import { email, socials } from "@/data/socials";
+import { asset } from "@/lib/utils";
 
 export function Contact() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
+  const cvHref = asset(
+    lang === "pt" ? "/curriculo-pedro-guilherme.pdf" : "/resume-pedro-guilherme.pdf",
+  );
   return (
     <section id="contact" className="bg-foreground px-5 pt-14 pb-10 text-background sm:px-10">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-background/40 pt-3">
@@ -23,17 +27,27 @@ export function Contact() {
         <h2 className="heading max-w-2xl text-[clamp(2rem,6vw,4.5rem)] text-background">
           {t.contact.heading}
         </h2>
-        <a
-          href={`mailto:${email}?subject=New%20project`}
-          className="btn group !border-background !px-10 !py-6 !text-sm text-background hover:!border-accent hover:!bg-accent"
-        >
-          {t.hero.startProject}
-          <ArrowUpRight
-            size={16}
-            aria-hidden
-            className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
-          />
-        </a>
+        <div className="flex flex-col gap-px sm:flex-row">
+          <a
+            href={`mailto:${email}?subject=New%20project`}
+            className="btn group !border-background !px-10 !py-6 !text-sm text-background hover:!border-accent hover:!bg-accent"
+          >
+            {t.hero.startProject}
+            <ArrowUpRight
+              size={16}
+              aria-hidden
+              className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+            />
+          </a>
+          <a
+            href={cvHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn !border-background/40 !px-10 !py-6 !text-sm text-background/80 hover:!border-accent hover:!text-accent"
+          >
+            {t.contact.cv} <Download size={15} aria-hidden />
+          </a>
+        </div>
       </Reveal>
 
       <div className="mt-20 grid gap-y-8 border-t border-background/40 pt-6 sm:grid-cols-2">

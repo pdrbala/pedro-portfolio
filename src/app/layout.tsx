@@ -30,13 +30,31 @@ const plexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const SITE_URL = "https://pdrbala.github.io/pedro-portfolio";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Pedro Guilherme — Graphic Designer & Motion-led Visual Systems",
     template: "%s — Pedro Guilherme",
   },
   description:
-    "Brazil-based graphic designer crafting motion-led visual systems, campaign assets and digital-first brand moments for clients worldwide.",
+    "Brazil-based graphic designer crafting editorial systems, brand identities and motion-led visual work.",
+  openGraph: {
+    type: "website",
+    siteName: "Pedro Guilherme",
+    title: "Pedro Guilherme — Graphic Designer & Art Director",
+    description:
+      "Editorial systems, brand identities and motion-led visual work. Brazil-based, working worldwide.",
+    url: SITE_URL,
+    images: [{ url: `${SITE_URL}/og.jpg`, width: 1200, height: 630, alt: "Pedro Guilherme" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pedro Guilherme — Graphic Designer & Art Director",
+    description: "Editorial, brand and motion-led visual work.",
+    images: [`${SITE_URL}/og.jpg`],
+  },
 };
 
 export default function RootLayout({

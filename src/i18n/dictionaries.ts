@@ -30,8 +30,9 @@ export const dict = {
       heading: "Let’s work together.",
       email: "Email",
       elsewhere: "Elsewhere",
+      cv: "Download CV",
     },
-    intro: { welcome: "Welcome", prompt: "Pick a language" },
+    intro: { welcome: "Welcome", prompt: "Pick a language", suggested: "Suggested" },
     footer: { rights: "© 2026 Pedro Guilherme", note: "Brazil-based / Worldwide", top: "Top" },
     caseStudy: {
       back: "All work",
@@ -70,8 +71,9 @@ export const dict = {
       heading: "Vamos criar algo com propósito.",
       email: "E-mail",
       elsewhere: "Redes",
+      cv: "Baixar currículo",
     },
-    intro: { welcome: "Bem-vindo", prompt: "Escolha o idioma" },
+    intro: { welcome: "Bem-vindo", prompt: "Escolha o idioma", suggested: "Sugerido" },
     footer: { rights: "© 2026 Pedro Guilherme", note: "Do Brasil / Mundo", top: "Topo" },
     caseStudy: {
       back: "Todos os trabalhos",

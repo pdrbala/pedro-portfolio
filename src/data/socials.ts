@@ -1,4 +1,4 @@
-export const email = "hello@pedroguilherme.design";
+export const email = "pedrogui48@gmail.com";
 
 export interface Social {
   label: string;
@@ -7,7 +7,10 @@ export interface Social {
 }
 
 export const socials: Social[] = [
-  { label: "Instagram", handle: "@pedroguilherme", href: "https://instagram.com/pedroguilherme" },
-  { label: "Behance", handle: "/pedroguilherme", href: "https://behance.net/pedroguilherme" },
-  { label: "LinkedIn", handle: "/in/pedroguilherme", href: "https://linkedin.com/in/pedroguilherme" },
+  {
+    label: "LinkedIn",
+    handle: "/in/pedro-guilherme",
+    href: "https://www.linkedin.com/in/pedro-guilherme-0886b4267/",
+  },
+  { label: "WhatsApp", handle: "+55 31 98301-2337", href: "https://wa.me/5531983012337" },
 ];
