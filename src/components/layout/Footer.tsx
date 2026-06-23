@@ -3,6 +3,7 @@
 import { ArrowUp } from "lucide-react";
 import { useLenis } from "@/components/providers/SmoothScrollProvider";
 import { useLang } from "@/i18n/LanguageProvider";
+import { email } from "@/data/socials";
 
 export function Footer() {
   const lenis = useLenis();
@@ -17,7 +18,12 @@ export function Footer() {
     <footer className="border-t border-foreground bg-background">
       <div className="flex flex-col gap-4 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-10">
         <p className="label text-muted">{t.footer.rights}</p>
-        <p className="label text-muted">{t.footer.note}</p>
+        <a
+          href={`mailto:${email}`}
+          className="label text-foreground transition-colors hover:text-accent"
+        >
+          {email}
+        </a>
         <button
           type="button"
           onClick={backToTop}

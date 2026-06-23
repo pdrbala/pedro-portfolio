@@ -7,7 +7,6 @@ import { ArrowUpRight } from "lucide-react";
 import { useEffect, type MouseEvent } from "react";
 import { NAV } from "@/components/layout/Header";
 import { useLang } from "@/i18n/LanguageProvider";
-import { LANGS } from "@/i18n/dictionaries";
 import { email, socials } from "@/data/socials";
 
 const EASE = [0.76, 0, 0.24, 1] as const;
@@ -21,9 +20,12 @@ export function MobileMenu({
   onNavigate: (e: MouseEvent<HTMLAnchorElement>, hash: string) => void;
   onClose: () => void;
 }) {
-  const { t, lang, setLang } = useLang();
+  const { t, setLang } = useLang();
   const pathname = usePathname();
   const onMotion = pathname.startsWith("/motion");
+  const cross = onMotion
+    ? { href: "/", label: "Graphic Design", lang: "pt" as const }
+    : { href: "/motion", label: "Motion", lang: "en" as const };
 
   useEffect(() => {
     if (!open) return;
@@ -51,49 +53,46 @@ export function MobileMenu({
         >
           <nav aria-label="Mobile">
             <ul>
-              {NAV.map((link, i) => (
-                <li key={link.hash} className="overflow-hidden border-t border-foreground last:border-b">
-                  <motion.div
-                    initial={{ y: "100%" }}
-                    animate={{ y: "0%" }}
-                    transition={{ duration: 0.5, delay: 0.06 * i, ease: EASE }}
+              {/* the big cross-link to the other world (switches language too) */}
+              <li className="overflow-hidden border-t border-foreground">
+                <motion.div initial={{ y: "100%" }} animate={{ y: "0%" }} transition={{ duration: 0.5, ease: EASE }}>
+                  <Link
+                    href={cross.href}
+                    onClick={() => {
+                      setLang(cross.lang);
+                      onClose();
+                    }}
+                    className="display flex items-baseline gap-4 py-4 text-[clamp(3rem,16vw,5.5rem)] text-accent"
                   >
-                    <Link
-                      href={`/${link.hash}`}
-                      onClick={(e) => onNavigate(e, link.hash)}
-                      className="display flex items-baseline gap-4 py-4 text-[clamp(3rem,16vw,5.5rem)] text-foreground"
+                    {cross.label}
+                    <ArrowUpRight className="size-7" />
+                  </Link>
+                </motion.div>
+              </li>
+              {/* editorial nav only in the editorial world */}
+              {!onMotion &&
+                NAV.map((link, i) => (
+                  <li key={link.hash} className="overflow-hidden border-t border-foreground last:border-b">
+                    <motion.div
+                      initial={{ y: "100%" }}
+                      animate={{ y: "0%" }}
+                      transition={{ duration: 0.5, delay: 0.06 * (i + 1), ease: EASE }}
                     >
-                      <span className="label text-accent">0{i + 1}</span>
-                      {t.nav[link.key]}
-                    </Link>
-                  </motion.div>
-                </li>
-              ))}
+                      <Link
+                        href={`/${link.hash}`}
+                        onClick={(e) => onNavigate(e, link.hash)}
+                        className="display flex items-baseline gap-4 py-4 text-[clamp(3rem,16vw,5.5rem)] text-foreground"
+                      >
+                        <span className="label text-accent">0{i + 1}</span>
+                        {t.nav[link.key]}
+                      </Link>
+                    </motion.div>
+                  </li>
+                ))}
             </ul>
           </nav>
 
           <div className="flex flex-col gap-5">
-            <Link
-              href={onMotion ? "/" : "/motion"}
-              onClick={onClose}
-              className="btn btn-line flex items-center justify-center gap-2"
-            >
-              {onMotion ? t.motion.toEditorial : t.motion.toMotion}
-              <ArrowUpRight size={14} />
-            </Link>
-            <div className="flex gap-px" role="group" aria-label="Language">
-              {LANGS.map((l) => (
-                <button
-                  key={l}
-                  type="button"
-                  onClick={() => setLang(l)}
-                  aria-pressed={lang === l}
-                  className={`btn ${lang === l ? "btn-fill" : "btn-line"} flex-1`}
-                >
-                  {l.toUpperCase()}
-                </button>
-              ))}
-            </div>
             <a href={`mailto:${email}`} className="label text-foreground underline underline-offset-4">
               {email}
             </a>

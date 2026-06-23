@@ -7,44 +7,24 @@ import { useState, type MouseEvent } from "react";
 import { useLenis } from "@/components/providers/SmoothScrollProvider";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { useLang } from "@/i18n/LanguageProvider";
-import { LANGS } from "@/i18n/dictionaries";
 
 export const NAV = [
   { key: "work", hash: "#work" },
   { key: "contact", hash: "#contact" },
 ] as const;
 
-function LangToggle({ className }: { className?: string }) {
-  const { lang, setLang } = useLang();
-  return (
-    <div className={className} role="group" aria-label="Language">
-      {LANGS.map((l, i) => (
-        <button
-          key={l}
-          type="button"
-          onClick={() => setLang(l)}
-          aria-pressed={lang === l}
-          className={`label px-2 transition-colors ${
-            lang === l ? "text-accent" : "text-muted hover:text-foreground"
-          } ${i === 0 ? "border-r border-hairline pr-2" : "pl-2"}`}
-        >
-          {l.toUpperCase()}
-        </button>
-      ))}
-    </div>
-  );
-}
-
 export function Header() {
   const pathname = usePathname();
   const lenis = useLenis();
-  const { t } = useLang();
+  const { t, setLang } = useLang();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // discreet cross-link between the editorial (home) and motion worlds
+  // Two coupled worlds: EN/Motion (/motion) and PT/Editorial (/).
+  // The cross-link switches BOTH language and world at once.
   const onMotion = pathname.startsWith("/motion");
-  const crossHref = onMotion ? "/" : "/motion";
-  const crossLabel = onMotion ? t.motion.toEditorial : t.motion.toMotion;
+  const cross = onMotion
+    ? { href: "/", label: "Graphic Design", lang: "pt" as const }
+    : { href: "/motion", label: "Motion", lang: "en" as const };
 
   function goTo(e: MouseEvent<HTMLAnchorElement>, hash: string) {
     setMenuOpen(false);
@@ -62,7 +42,7 @@ export function Header() {
         <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-accent" />
         <div className="flex items-stretch justify-between border-b border-foreground">
           <Link
-            href="/"
+            href={onMotion ? "/motion" : "/"}
             className="label flex items-center gap-2 border-r border-foreground px-5 py-4 font-bold text-foreground sm:px-8"
             aria-label="Pedro Guilherme — home"
           >
@@ -72,27 +52,31 @@ export function Header() {
 
           <div className="flex items-stretch">
             <nav aria-label="Primary" className="hidden items-stretch md:flex">
-              {NAV.map((link, i) => (
-                <Link
-                  key={link.hash}
-                  href={`/${link.hash}`}
-                  onClick={(e) => goTo(e, link.hash)}
-                  className="label group flex items-center gap-2 border-l border-hairline px-6 text-muted transition-colors hover:bg-foreground hover:text-background"
-                >
-                  <span className="text-[0.85em] opacity-50 group-hover:text-accent group-hover:opacity-100">
-                    0{i + 1}
-                  </span>
-                  {t.nav[link.key]}
-                </Link>
-              ))}
+              {!onMotion &&
+                NAV.map((link, i) => (
+                  <Link
+                    key={link.hash}
+                    href={`/${link.hash}`}
+                    onClick={(e) => goTo(e, link.hash)}
+                    className="label group flex items-center gap-2 border-l border-hairline px-6 text-muted transition-colors hover:bg-foreground hover:text-background"
+                  >
+                    <span className="text-[0.85em] opacity-50 group-hover:text-accent group-hover:opacity-100">
+                      0{i + 1}
+                    </span>
+                    {t.nav[link.key]}
+                  </Link>
+                ))}
               <Link
-                href={crossHref}
+                href={cross.href}
+                onClick={() => setLang(cross.lang)}
                 className="label group flex items-center gap-1.5 border-l border-foreground px-6 text-accent transition-colors hover:bg-accent hover:text-background"
               >
-                {crossLabel}
-                <ArrowUpRight size={12} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                {cross.label}
+                <ArrowUpRight
+                  size={12}
+                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
               </Link>
-              <LangToggle className="flex items-center border-l border-foreground px-4" />
             </nav>
 
             <button
