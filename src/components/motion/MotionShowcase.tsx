@@ -1,10 +1,12 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { Volume2, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/motion/Reveal";
+import { VideoPlayer } from "@/components/motion/VideoPlayer";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { WorldSwitch } from "@/components/ui/WorldSwitch";
 import { useLang } from "@/i18n/LanguageProvider";
 import { getMotion, type MotionItem } from "@/data/motion";
 import { asset, cn } from "@/lib/utils";
@@ -114,6 +116,11 @@ export function MotionShowcase() {
         ))}
       </div>
 
+      {/* bottom cross-link to the editorial world (full-bleed band) */}
+      <div className="-mx-5 mt-24 sm:-mx-10 sm:mt-32">
+        <WorldSwitch />
+      </div>
+
       <AnimatePresence>
         {active && (
           <motion.div
@@ -144,20 +151,14 @@ export function MotionShowcase() {
                   : "aspect-video max-w-5xl",
               )}
             >
-              <video
+              <VideoPlayer
                 key={active.slug}
                 src={asset(active.src)}
                 poster={asset(active.poster)}
-                controls
-                autoPlay
-                loop
-                playsInline
-                className="absolute inset-0 h-full w-full bg-black"
+                className="absolute inset-0 h-full w-full"
               />
             </motion.div>
-            <p className="label absolute bottom-5 left-5 flex items-center gap-2 text-background/60">
-              <Volume2 size={13} /> {active.title}
-            </p>
+            <p className="label absolute top-5 left-5 text-background/60">{active.title}</p>
           </motion.div>
         )}
       </AnimatePresence>
