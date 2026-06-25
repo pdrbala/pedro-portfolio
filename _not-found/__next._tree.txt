@@ -1,0 +1,2 @@
+:HL["/pedro-portfolio/_next/static/chunks/1ukup4kbp980b.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"KzCVK8Pr_JJ6-iuE7mYjX"}

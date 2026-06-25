@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[45667,["/pedro-portfolio/_next/static/chunks/022woz1w08pch.js","/pedro-portfolio/_next/static/chunks/14mrh2-p_w84d.js","/pedro-portfolio/_next/static/chunks/16ll8varlwnvv.js","/pedro-portfolio/_next/static/chunks/0zn8i-21nr34y.js","/pedro-portfolio/_next/static/chunks/0k5kbxse_x0u6.js","/pedro-portfolio/_next/static/chunks/429ruhkezmjzy.js"],"CaseStudyView"]
+3:I[97367,["/pedro-portfolio/_next/static/chunks/022woz1w08pch.js","/pedro-portfolio/_next/static/chunks/14mrh2-p_w84d.js","/pedro-portfolio/_next/static/chunks/16ll8varlwnvv.js","/pedro-portfolio/_next/static/chunks/0zn8i-21nr34y.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"slug":"costa-costa"}],[["$","script","script-0",{"src":"/pedro-portfolio/_next/static/chunks/0k5kbxse_x0u6.js","async":true}],["$","script","script-1",{"src":"/pedro-portfolio/_next/static/chunks/429ruhkezmjzy.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"KzCVK8Pr_JJ6-iuE7mYjX"}
+5:null
