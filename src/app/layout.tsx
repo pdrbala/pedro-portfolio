@@ -40,6 +40,14 @@ export const metadata: Metadata = {
   },
   description:
     "Brazil-based graphic designer crafting editorial systems, brand identities and motion-led visual work.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   openGraph: {
     type: "website",
     siteName: "Pedro Guilherme",

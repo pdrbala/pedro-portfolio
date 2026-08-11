@@ -28,21 +28,21 @@ export interface Project {
 /** Shared, language-agnostic fields. Replace covers in /public/work with real work. */
 const base = [
   {
-    slug: "a-verdade",
+    slug: "gao-contabeis",
     index: "01",
     year: "2025",
-    cover: "/work/jornal-01.jpg",
-    coverW: 1055,
-    coverH: 1491,
+    cover: "/work/gao-01.jpg",
+    coverW: 1080,
+    coverH: 1350,
     featured: true,
   },
   {
-    slug: "monogamia-capitalista",
+    slug: "gao-apresentacao",
     index: "02",
     year: "2025",
-    cover: "/work/monogamia-01.jpg",
-    coverW: 941,
-    coverH: 1672,
+    cover: "/work/gao-pres-01.png",
+    coverW: 1920,
+    coverH: 1080,
     featured: false,
   },
   {
@@ -71,58 +71,71 @@ type Content = Pick<Project, "title" | "coverAlt" | "type" | "tags" | "descripti
 
 const content: Record<Lang, Record<Slug, Content>> = {
   en: {
-    "a-verdade": {
-      title: "A Verdade",
-      coverAlt: "A Verdade newspaper front page — who stole our time?",
-      type: "Editorial / Newspaper",
-      tags: ["Editorial", "Print", "Political"],
+    "gao-contabeis": {
+      title: "GAO Contábeis",
+      coverAlt: "GAO Contábeis social media campaign posts",
+      type: "Social Media / Graphic Design",
+      tags: ["Social Media", "Graphic Design", "Editorial"],
       description:
-        "A conceptual political newspaper on labour and time — confrontational front pages, data spreads and protest photography.",
+        "Strategic social media design system for an accounting firm — high-impact typography, editorial layouts and targeted business communications.",
       caseStudy: {
         intro:
-          "A special edition built around one question: who stole our time? Editorial design for a political paper on the 6×1 work scale — type-led, data-driven, unafraid.",
-        role: "Editorial design, art direction, layout",
-        deliverables: ["Front page", "Feature spread", "Infographics", "Cover system"],
+          "A series of editorial social media posts created for GAO Contábeis. The strategy combines elegant serif headlines, strong corporate imagery, and concise financial messaging to elevate the brand's visual positioning.",
+        role: "Graphic design, typography, social content direction",
+        deliverables: ["Social Media Grid", "Content Design", "Typography System", "Post Templates"],
         blocks: [
           {
             kind: "text",
-            heading: "A front page that argues",
-            body: "The cover leads with a single confrontational headline over protest photography — the message lands before a word is read.",
+            heading: "Strategic Messaging & Editorial Layout",
+            body: "Connecting business realities like tax reform, mine closure costs, and pricing strategy with refined visual presentation.",
           },
-          { kind: "image", src: "/work/jornal-02.jpg", alt: "Feature spread — six days for work", w: 1200, h: 1697 },
+          { kind: "image", src: "/work/gao-02.jpg", alt: "GAO Contábeis — Mining cost post", w: 1080, h: 1350 },
           {
             kind: "text",
-            heading: "Data with a point of view",
-            body: "Charts, a 6×1 day breakdown and a timeline turn statistics into an argument, not decoration.",
+            heading: "Typography & Corporate Aesthetic",
+            body: "Editorial serif typography over carefully compositioned photography builds authority and immediate trust with corporate clients.",
           },
-          { kind: "image", src: "/work/jornal-03.jpg", alt: "Infographic page — how much time is left", w: 1200, h: 1697 },
+          { kind: "image", src: "/work/gao-03.jpg", alt: "GAO Contábeis — Business growth post", w: 1080, h: 1350 },
+          { kind: "image", src: "/work/gao-04.jpg", alt: "GAO Contábeis — Tax reform post", w: 1080, h: 1350 },
         ],
       },
     },
-    "monogamia-capitalista": {
-      title: "Monogamia Capitalista",
-      coverAlt: "Monogamia Capitalista book cover",
-      type: "Editorial / Book cover",
-      tags: ["Editorial", "Cover", "Print"],
+    "gao-apresentacao": {
+      title: "GAO — Apresentação Institucional",
+      coverAlt: "GAO Contábeis commercial presentation slides",
+      type: "Presentation / Pitch Deck",
+      tags: ["Presentation", "Slide Deck", "Corporate", "Infographics"],
       description:
-        "Cover for a critical essay on love as property — vintage agitprop type, woodcut texture and a heart-shaped padlock.",
+        "Commercial pitch deck and institutional presentation for GAO Contábeis — service ecosystem, customer onboarding workflow, and performance metrics.",
       caseStudy: {
         intro:
-          "A book that frames monogamy as ownership deserves a cover that looks like old propaganda. Distressed display type, a constructivist navy-and-red palette and a heart-shaped padlock — romance as a contract.",
-        role: "Cover design, typography, art direction",
-        deliverables: ["Cover", "Typography", "Mockup"],
+          "Full corporate slide deck designed for client proposals, pitch meetings, and internal reporting. Features a custom 360º ecosystem diagram, onboarding timeline, and data visualization cards.",
+        role: "Slide deck design, infographic layout, pitch presentation",
+        deliverables: ["16:9 Presentation Deck", "Commercial Proposal", "Infographics", "Onboarding System"],
         blocks: [
           {
             kind: "text",
-            heading: "Agitprop, updated",
-            body: "Worn letterpress type, folk ornaments and a navy-and-red palette borrow the language of vintage political pamphlets — then turn it on romance.",
+            heading: "Brand Identity & 360º Service Ecosystem",
+            body: "Clear visual hierarchy introducing the brand logo and mapping the 9 core accounting, tax, and legal business verticals.",
           },
-          { kind: "image", src: "/work/monogamia-02.jpg", alt: "Monogamia Capitalista flat cover", w: 1055, h: 1491 },
+          { kind: "image", src: "/work/gao-pres-01.png", alt: "GAO — Presentation Title Slide", w: 1920, h: 1080 },
+          { kind: "image", src: "/work/gao-pres-02.png", alt: "GAO — 360º Service Ecosystem", w: 1920, h: 1080 },
           {
             kind: "text",
-            heading: "One loaded symbol",
-            body: "A heart-shaped padlock says everything the title argues: affection, possession and control, locked together.",
+            heading: "Onboarding Workflow & Core Values",
+            body: "A linear timeline guiding prospective clients through the 8 onboarding steps from contract signature to fiscal monitoring.",
           },
+          { kind: "image", src: "/work/gao-pres-03.png", alt: "GAO — Onboarding Journey", w: 1920, h: 1080 },
+          { kind: "image", src: "/work/gao-pres-04.png", alt: "GAO — Transformative Goals", w: 1920, h: 1080 },
+          {
+            kind: "text",
+            heading: "Organizational Benefits & Performance Numbers",
+            body: "Visualizing key performance indicators, client support volumes, and employee benefit programs.",
+          },
+          { kind: "image", src: "/work/gao-pres-05.png", alt: "GAO — Investment in People", w: 1920, h: 1080 },
+          { kind: "image", src: "/work/gao-pres-06.png", alt: "GAO — Employee Benefits Grid", w: 1920, h: 1080 },
+          { kind: "image", src: "/work/gao-pres-07.png", alt: "GAO — Service Metrics", w: 1920, h: 1080 },
+          { kind: "image", src: "/work/gao-pres-08.png", alt: "GAO — Closing Contact Slide", w: 1920, h: 1080 },
         ],
       },
     },
@@ -177,64 +190,77 @@ const content: Record<Lang, Record<Slug, Content>> = {
             heading: "Warm and precise",
             body: "Terracotta, soft neutrals and clean type make the firm feel human without losing rigour.",
           },
-          { kind: "image", src: "/work/costa-03.jpg", alt: "Embossed logo on dark stock", w: 1600, h: 1067 },
+          { kind: "image", src: "/work/costa-03.jpg", alt: "Logo em relevo sobre papel escuro", w: 1600, h: 1067 },
         ],
       },
     },
   },
   pt: {
-    "a-verdade": {
-      title: "A Verdade — Jornal",
-      coverAlt: "Capa do jornal A Verdade — quem roubou nosso tempo?",
-      type: "Editorial / Jornal",
-      tags: ["Editorial", "Impresso", "Político"],
+    "gao-contabeis": {
+      title: "GAO Contábeis",
+      coverAlt: "Posts de redes sociais para GAO Contábeis",
+      type: "Social Media / Design Gráfico",
+      tags: ["Social Media", "Design Gráfico", "Editorial"],
       description:
-        "Jornal político conceitual sobre trabalho e tempo — capas de impacto, infográficos e fotografia de luta.",
+        "Design de posts e comunicação estratégica para contabilidade — tipografia editorial de alto impacto e direção de conteúdo de negócios.",
       caseStudy: {
         intro:
-          "Uma edição especial em torno de uma pergunta: quem roubou nosso tempo? Projeto editorial para um jornal sobre a escala 6×1 — guiado pela tipografia, baseado em dados, sem medo.",
-        role: "Projeto editorial, direção de arte, diagramação",
-        deliverables: ["Capa", "Reportagem", "Infográficos", "Sistema de capa"],
+          "Série de posts conceituais desenvolvida para a GAO Contábeis. A proposta une títulos tipográficos elegantes, fotografia corporativa e redação direta sobre desafios financeiros reais.",
+        role: "Design gráfico, tipografia, direção de peças sociais",
+        deliverables: ["Grid para Instagram", "Design de Conteúdo", "Sistema Tipográfico", "Templates"],
         blocks: [
           {
             kind: "text",
-            heading: "Uma capa que argumenta",
-            body: "A capa abre com um único título confrontador sobre fotografia de manifestação — a mensagem chega antes de qualquer palavra.",
+            heading: "Comunicação Estratégica & Layout Editorial",
+            body: "Tradução de pautas complexas como reforma tributária, custos operacionais e precificação em peças visuais marcantes.",
           },
-          { kind: "image", src: "/work/jornal-02.jpg", alt: "Reportagem — seis dias para o trabalho", w: 1200, h: 1697 },
+          { kind: "image", src: "/work/gao-02.jpg", alt: "GAO Contábeis — Post sobre mineração", w: 1080, h: 1350 },
           {
             kind: "text",
-            heading: "Dados com ponto de vista",
-            body: "Gráficos, a divisão de um dia na 6×1 e uma linha do tempo transformam estatística em argumento, não em enfeite.",
+            heading: "Tipografia & Estética Corporativa",
+            body: "Uso rigoroso da tipografia serifada sobre imagens contextualizadas para passar autoridade imediata ao público decisor.",
           },
-          { kind: "image", src: "/work/jornal-03.jpg", alt: "Página de infográfico — quanto tempo sobra", w: 1200, h: 1697 },
+          { kind: "image", src: "/work/gao-03.jpg", alt: "GAO Contábeis — Post sobre atualização", w: 1080, h: 1350 },
+          { kind: "image", src: "/work/gao-04.jpg", alt: "GAO Contábeis — Post sobre reforma tributária", w: 1080, h: 1350 },
         ],
       },
     },
-    "monogamia-capitalista": {
-      title: "Monogamia Capitalista",
-      coverAlt: "Capa do livro Monogamia Capitalista",
-      type: "Editorial / Capa de livro",
-      tags: ["Editorial", "Capa", "Impresso"],
+    "gao-apresentacao": {
+      title: "GAO — Apresentação Institucional",
+      coverAlt: "Slides da apresentação comercial da GAO Contábeis",
+      type: "Apresentação & Comercial / Slide System",
+      tags: ["Apresentação", "Proposta Comercial", "Métricas", "Slide Deck"],
       description:
-        "Capa para um ensaio crítico sobre o amor como posse — tipografia de agitprop, textura xilogravada e um cadeado-coração.",
+        "Deck de apresentação comercial e institucional para a GAO Contábeis — diagramação de métricas, ecossistema de serviços, onboarding e relatórios corporativos.",
       caseStudy: {
         intro:
-          "Um livro que trata a monogamia como propriedade pede uma capa com cara de propaganda antiga. Tipografia desgastada, paleta construtivista azul e vermelho e um cadeado em forma de coração — o romance como contrato.",
-        role: "Design de capa, tipografia, direção de arte",
-        deliverables: ["Capa", "Tipografia", "Mockup"],
+          "Sistema completo de apresentação comercial e institucional para a GAO Contábeis. Desenvolvido para reuniões com clientes e propostas de alto valor, apresentando métricas de atendimento, onboarding funcional e visão ecossistêmica 360º.",
+        role: "Design de slides, infografia comercial, pitch deck",
+        deliverables: ["Apresentação 16:9", "Proposta Comercial", "Infográficos de Métricas", "Pitch Deck"],
         blocks: [
           {
             kind: "text",
-            heading: "Agitprop, atualizado",
-            body: "Tipografia gasta, ornamentos populares e uma paleta azul e vermelho tomam emprestada a linguagem dos panfletos políticos antigos — e a viram contra o romance.",
+            heading: "Identidade & Ecossistema de Serviços 360º",
+            body: "Estrutura visual limpa apresentando a marca GAO e mapeamento infográfico circular das 9 soluções contábeis e fiscais.",
           },
-          { kind: "image", src: "/work/monogamia-02.jpg", alt: "Capa plana de Monogamia Capitalista", w: 1055, h: 1491 },
+          { kind: "image", src: "/work/gao-pres-01.png", alt: "GAO — Capa da Apresentação", w: 1920, h: 1080 },
+          { kind: "image", src: "/work/gao-pres-02.png", alt: "GAO — Ecossistema 360º", w: 1920, h: 1080 },
           {
             kind: "text",
-            heading: "Um símbolo carregado",
-            body: "Um cadeado em forma de coração diz tudo o que o título argumenta: afeto, posse e controle, trancados juntos.",
+            heading: "Jornada de Onboarding & Valores Corporativos",
+            body: "Linha do tempo passo a passo demonstrando o fluxo de onboarding do cliente e o posicionamento de transformação da empresa.",
           },
+          { kind: "image", src: "/work/gao-pres-03.png", alt: "GAO — Onboarding de Sucesso", w: 1920, h: 1080 },
+          { kind: "image", src: "/work/gao-pres-04.png", alt: "GAO — Evoluir e Transformar Vidas", w: 1920, h: 1080 },
+          {
+            kind: "text",
+            heading: "Métricas de Performance & Benefícios",
+            body: "Diagramação de indicadores de atendimento, volume de obrigações entregues e cartões de benefícios organizacionais.",
+          },
+          { kind: "image", src: "/work/gao-pres-05.png", alt: "GAO — Investimento em Pessoas", w: 1920, h: 1080 },
+          { kind: "image", src: "/work/gao-pres-06.png", alt: "GAO — Lista de Benefícios e Estrutura", w: 1920, h: 1080 },
+          { kind: "image", src: "/work/gao-pres-07.png", alt: "GAO — Métricas de Atendimento e Entregas", w: 1920, h: 1080 },
+          { kind: "image", src: "/work/gao-pres-08.png", alt: "GAO — Encerramento e Contato Comercial", w: 1920, h: 1080 },
         ],
       },
     },
@@ -275,8 +301,8 @@ const content: Record<Lang, Record<Slug, Content>> = {
       caseStudy: {
         intro:
           "Contabilidade não precisa ser fria. Costa & Costa ganha uma paleta terracota e um monograma ‘C’ em meia-lua — acessível, mas preciso.",
-        role: "Identidade de marca, logo, papelaria",
-        deliverables: ["Monograma", "Sistema de logo", "Papelaria", "Mockups"],
+        role: "Brand identity, logo, papelaria",
+        deliverables: ["Monogram", "Logo system", "Stationery", "Mockups"],
         blocks: [
           {
             kind: "text",

@@ -31,28 +31,74 @@ export function WorkCard({
         <span className="label truncate text-muted">{project.type}</span>
       </div>
 
-      <motion.div
-        initial={reduced ? false : { clipPath: "inset(12% 6% 12% 6%)", scale: 1.04 }}
-        whileInView={reduced ? undefined : { clipPath: "inset(0% 0% 0% 0%)", scale: 1 }}
-        viewport={{ once: true, margin: "-12% 0px" }}
-        transition={{ duration: 1, ease: EASE }}
-        className={cn("relative overflow-hidden bg-foreground/5", aspectClass)}
-      >
-        <Image
-          src={asset(project.cover)}
-          alt={project.coverAlt}
-          fill
-          sizes="(min-width: 768px) 50vw, 100vw"
-          className="object-cover transition-transform duration-[1.1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
-        />
-        {/* index overprint — bleeds in from the corner on hover */}
-        <span
-          aria-hidden
-          className="display absolute right-3 bottom-1 text-[5rem] leading-none text-background/0 mix-blend-difference transition-colors duration-500 group-hover:text-background/90"
+      {project.slug === "gao-apresentacao" ? (
+        <motion.div
+          initial={reduced ? false : { clipPath: "inset(12% 6% 12% 6%)", scale: 1.04 }}
+          whileInView={reduced ? undefined : { clipPath: "inset(0% 0% 0% 0%)", scale: 1 }}
+          viewport={{ once: true, margin: "-12% 0px" }}
+          transition={{ duration: 1, ease: EASE }}
+          className="relative overflow-hidden bg-foreground/5 aspect-21/9 w-full"
         >
-          {project.index}
-        </span>
-      </motion.div>
+          <div className="grid grid-cols-3 gap-2 bg-foreground/10 p-2 h-full">
+            <div className="relative h-full w-full overflow-hidden">
+              <Image
+                src={asset("/work/gao-pres-02.png")}
+                alt="GAO Apresentação — Ecossistema 360"
+                fill
+                sizes="(min-width: 768px) 30vw, 33vw"
+                className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+              />
+            </div>
+            <div className="relative h-full w-full overflow-hidden">
+              <Image
+                src={asset("/work/gao-pres-03.png")}
+                alt="GAO Apresentação — Onboarding"
+                fill
+                sizes="(min-width: 768px) 30vw, 33vw"
+                className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+              />
+            </div>
+            <div className="relative h-full w-full overflow-hidden">
+              <Image
+                src={asset("/work/gao-pres-07.png")}
+                alt="GAO Apresentação — Métricas"
+                fill
+                sizes="(min-width: 768px) 30vw, 33vw"
+                className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+              />
+            </div>
+          </div>
+          <span
+            aria-hidden
+            className="display absolute right-3 bottom-1 text-[5rem] leading-none text-background/0 mix-blend-difference transition-colors duration-500 group-hover:text-background/90"
+          >
+            {project.index}
+          </span>
+        </motion.div>
+      ) : (
+        <motion.div
+          initial={reduced ? false : { clipPath: "inset(12% 6% 12% 6%)", scale: 1.04 }}
+          whileInView={reduced ? undefined : { clipPath: "inset(0% 0% 0% 0%)", scale: 1 }}
+          viewport={{ once: true, margin: "-12% 0px" }}
+          transition={{ duration: 1, ease: EASE }}
+          className={cn("relative overflow-hidden bg-foreground/5", aspectClass)}
+        >
+          <Image
+            src={asset(project.cover)}
+            alt={project.coverAlt}
+            fill
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover transition-transform duration-[1.1s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
+          />
+          {/* index overprint — bleeds in from the corner on hover */}
+          <span
+            aria-hidden
+            className="display absolute right-3 bottom-1 text-[5rem] leading-none text-background/0 mix-blend-difference transition-colors duration-500 group-hover:text-background/90"
+          >
+            {project.index}
+          </span>
+        </motion.div>
+      )}
 
       <div className="mt-4 flex items-start justify-between gap-6">
         <div>

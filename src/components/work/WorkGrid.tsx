@@ -34,16 +34,51 @@ export function WorkGrid() {
             data-cursor="view"
             className="group grid gap-8 border-t border-foreground pt-6 md:grid-cols-12 md:gap-12"
           >
-            <div className="relative overflow-hidden bg-foreground/5 md:col-span-5">
-              <Image
-                src={asset(featured.cover)}
-                alt={featured.coverAlt}
-                width={featured.coverW}
-                height={featured.coverH}
-                priority
-                sizes="(min-width: 768px) 40vw, 100vw"
-                className="h-auto w-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
-              />
+            <div className="relative overflow-hidden bg-foreground/5 md:col-span-6">
+              {featured.slug === "gao-contabeis" ? (
+                <div className="grid grid-cols-2 gap-2 bg-foreground/10 p-2">
+                  <Image
+                    src={asset("/work/gao-01.jpg")}
+                    alt="GAO Contábeis — Post 1"
+                    width={540}
+                    height={675}
+                    priority
+                    className="h-auto w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
+                  />
+                  <Image
+                    src={asset("/work/gao-02.jpg")}
+                    alt="GAO Contábeis — Post 2"
+                    width={540}
+                    height={675}
+                    priority
+                    className="h-auto w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
+                  />
+                  <Image
+                    src={asset("/work/gao-03.jpg")}
+                    alt="GAO Contábeis — Post 3"
+                    width={540}
+                    height={675}
+                    className="h-auto w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
+                  />
+                  <Image
+                    src={asset("/work/gao-04.jpg")}
+                    alt="GAO Contábeis — Post 4"
+                    width={540}
+                    height={675}
+                    className="h-auto w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
+                  />
+                </div>
+              ) : (
+                <Image
+                  src={asset(featured.cover)}
+                  alt={featured.coverAlt}
+                  width={featured.coverW}
+                  height={featured.coverH}
+                  priority
+                  sizes="(min-width: 768px) 40vw, 100vw"
+                  className="h-auto w-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                />
+              )}
             </div>
 
             <div className="flex flex-col justify-center md:col-span-6">
@@ -69,7 +104,14 @@ export function WorkGrid() {
           <WorkCard
             key={project.slug}
             project={project}
-            aspectClass={project.coverH > project.coverW ? "aspect-3/4" : "aspect-4/5 md:aspect-4/3"}
+            className={project.slug === "gao-apresentacao" ? "md:col-span-2" : undefined}
+            aspectClass={
+              project.slug === "gao-apresentacao"
+                ? "aspect-21/9"
+                : project.coverH > project.coverW
+                ? "aspect-3/4"
+                : "aspect-4/5 md:aspect-4/3"
+            }
           />
         ))}
       </div>
