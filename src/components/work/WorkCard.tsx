@@ -39,7 +39,7 @@ export function WorkCard({
           transition={{ duration: 1, ease: EASE }}
           className={cn(
             "relative overflow-hidden bg-foreground/5 w-full",
-            project.collageLayout === "3x3" ? "aspect-video" : "aspect-21/9",
+            project.collageLayout === "3x3" || project.collageLayout === "portrait" ? "aspect-video" : "aspect-21/9",
           )}
         >
           <div
@@ -55,7 +55,10 @@ export function WorkCard({
                   alt={img.alt}
                   fill
                   sizes={project.collageLayout === "3x3" ? "(min-width: 768px) 16vw, 33vw" : "(min-width: 768px) 30vw, 33vw"}
-                  className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                  className={cn(
+                    "transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]",
+                    project.collageLayout === "portrait" ? "object-contain" : "object-cover",
+                  )}
                 />
               </div>
             ))}

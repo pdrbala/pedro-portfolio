@@ -24,8 +24,10 @@ export interface Project {
   featured: boolean;
   /** "collage" renders `gallery` as a multi-image teaser instead of a single cover image. */
   layout: "single" | "collage";
-  /** Grid shape for the homepage collage tile — defaults to a single row of 3. */
-  collageLayout?: "3x1" | "3x3";
+  /** Grid shape for the homepage collage tile — defaults to a single row of 3.
+   *  "portrait" keeps the single-row-of-3 grid but shows each tile uncropped (object-contain),
+   *  for galleries made of tall portrait images that a wide crop would butcher. */
+  collageLayout?: "3x1" | "3x3" | "portrait";
   /** Skip the case-study page's top hero image. */
   hideCover?: boolean;
   gallery?: GalleryImage[];
@@ -66,8 +68,20 @@ const base = [
     hideCover: true,
   },
   {
-    slug: "eric-goncalves",
+    slug: "lanchonete-no-grau",
     index: "03",
+    year: "2026",
+    cover: "/work/lanchonete-01.png",
+    coverW: 1024,
+    coverH: 1536,
+    featured: false,
+    layout: "collage",
+    collageLayout: "portrait",
+    hideCover: true,
+  },
+  {
+    slug: "eric-goncalves",
+    index: "04",
     year: "2025",
     cover: "/work/eric-01.jpg",
     coverW: 1219,
@@ -77,7 +91,7 @@ const base = [
   },
   {
     slug: "costa-costa",
-    index: "04",
+    index: "05",
     year: "2024",
     cover: "/work/costa-01.jpg",
     coverW: 1600,
@@ -187,6 +201,50 @@ const content: Record<Lang, Record<Slug, Content>> = {
               { src: "/work/gao-pres-06.png", alt: "GAO — Employee Benefits Grid", w: 1920, h: 1080 },
               { src: "/work/gao-pres-07.png", alt: "GAO — Service Metrics", w: 1920, h: 1080 },
               { src: "/work/gao-pres-08.png", alt: "GAO — Closing Contact Slide", w: 1920, h: 1080 },
+            ],
+          },
+        ],
+      },
+    },
+    "lanchonete-no-grau": {
+      title: "Lanchonete No Grau",
+      coverAlt: "Menu and Instagram content for Lanchonete No Grau",
+      type: "Social Media / Graphic Design",
+      tags: ["Social Media", "Menu Design", "Food & Beverage"],
+      description:
+        "Visual communication system for a Brazilian snack bar — an illustrated menu, seasonal campaigns and Instagram stories built on a bold red, appetite-driving identity.",
+      gallery: [
+        { src: "/work/lanchonete-02.png", alt: "Lanchonete No Grau — Delivery story", w: 1080, h: 1920 },
+        { src: "/work/lanchonete-04.png", alt: "Lanchonete No Grau — National Cheese Bread Day", w: 1080, h: 1920 },
+        { src: "/work/lanchonete-06.png", alt: "Lanchonete No Grau — Fruit juice launch", w: 1080, h: 1920 },
+        { src: "/work/lanchonete-01.png", alt: "Lanchonete No Grau — Snack menu", w: 1024, h: 1536 },
+        { src: "/work/lanchonete-03.png", alt: "Lanchonete No Grau — Friends' Day promo", w: 941, h: 1672 },
+        { src: "/work/lanchonete-05.png", alt: "Lanchonete No Grau — Holiday closure notice", w: 1080, h: 1920 },
+        { src: "/work/lanchonete-07.png", alt: "Lanchonete No Grau — \"Which coxinha are you\" poll", w: 941, h: 1672 },
+        { src: "/work/lanchonete-08.png", alt: "Lanchonete No Grau — Friday checklist story", w: 941, h: 1672 },
+      ],
+      caseStudy: {
+        intro:
+          "Lanchonete No Grau needed visual communication that reads as hunger-inducing and moves at Instagram's pace. The result is a menu and story system built on saturated red, bold display type and tight product photography.",
+        role: "Graphic design, copywriting, social content direction",
+        deliverables: ["Illustrated Menu", "Instagram Stories", "Seasonal Campaigns", "Content Direction"],
+        blocks: [
+          {
+            kind: "text",
+            heading: "One visual system, every post",
+            body: "From the numbered menu and delivery templates to seasonal campaigns, product launches and lighter, meme-style content — everything runs on the same saturated red, bold display type and tight product photography, so the feed reads as one brand at any pace.",
+          },
+          {
+            kind: "gallery",
+            images: [
+              { src: "/work/lanchonete-02.png", alt: "Lanchonete No Grau — Delivery story", w: 1080, h: 1920 },
+              { src: "/work/lanchonete-03.png", alt: "Lanchonete No Grau — Friends' Day promo", w: 941, h: 1672 },
+              { src: "/work/lanchonete-04.png", alt: "Lanchonete No Grau — National Cheese Bread Day", w: 1080, h: 1920 },
+              { src: "/work/lanchonete-05.png", alt: "Lanchonete No Grau — Holiday closure notice", w: 1080, h: 1920 },
+              { src: "/work/lanchonete-06.png", alt: "Lanchonete No Grau — Fruit juice launch", w: 1080, h: 1920 },
+              { src: "/work/lanchonete-07.png", alt: "Lanchonete No Grau — \"Which coxinha are you\" poll", w: 941, h: 1672 },
+              { src: "/work/lanchonete-08.png", alt: "Lanchonete No Grau — Friday checklist story", w: 941, h: 1672 },
+              { src: "/work/lanchonete-01.png", alt: "Lanchonete No Grau — Snack menu", w: 1024, h: 1536 },
             ],
           },
         ],
@@ -343,6 +401,50 @@ const content: Record<Lang, Record<Slug, Content>> = {
               { src: "/work/gao-pres-06.png", alt: "GAO — Lista de Benefícios e Estrutura", w: 1920, h: 1080 },
               { src: "/work/gao-pres-07.png", alt: "GAO — Métricas de Atendimento e Entregas", w: 1920, h: 1080 },
               { src: "/work/gao-pres-08.png", alt: "GAO — Encerramento e Contato Comercial", w: 1920, h: 1080 },
+            ],
+          },
+        ],
+      },
+    },
+    "lanchonete-no-grau": {
+      title: "Lanchonete No Grau",
+      coverAlt: "Cardápio e conteúdo de Instagram da Lanchonete No Grau",
+      type: "Social Media / Design Gráfico",
+      tags: ["Social Media", "Cardápio", "Food & Beverage"],
+      description:
+        "Sistema de comunicação visual para uma lanchonete de salgados — cardápio ilustrado, campanhas sazonais e stories para Instagram sobre uma identidade vermelha e apetitosa.",
+      gallery: [
+        { src: "/work/lanchonete-02.png", alt: "Lanchonete No Grau — Story de delivery", w: 1080, h: 1920 },
+        { src: "/work/lanchonete-04.png", alt: "Lanchonete No Grau — Dia Nacional do Pão de Queijo", w: 1080, h: 1920 },
+        { src: "/work/lanchonete-06.png", alt: "Lanchonete No Grau — Lançamento de sucos", w: 1080, h: 1920 },
+        { src: "/work/lanchonete-01.png", alt: "Lanchonete No Grau — Cardápio de salgados", w: 1024, h: 1536 },
+        { src: "/work/lanchonete-03.png", alt: "Lanchonete No Grau — Promoção Dia do Amigo", w: 941, h: 1672 },
+        { src: "/work/lanchonete-05.png", alt: "Lanchonete No Grau — Comunicado de feriado", w: 1080, h: 1920 },
+        { src: "/work/lanchonete-07.png", alt: "Lanchonete No Grau — Enquete \"qual coxinha você seria\"", w: 941, h: 1672 },
+        { src: "/work/lanchonete-08.png", alt: "Lanchonete No Grau — Story de checklist de sexta-feira", w: 941, h: 1672 },
+      ],
+      caseStudy: {
+        intro:
+          "A Lanchonete No Grau precisava de comunicação visual que desse água na boca e acompanhasse o ritmo do Instagram. O resultado é um sistema de cardápio e stories construído sobre vermelho saturado, tipografia forte e fotografia de produto em close.",
+        role: "Design gráfico, redação, direção de conteúdo social",
+        deliverables: ["Cardápio Ilustrado", "Stories para Instagram", "Campanhas Sazonais", "Direção de Conteúdo"],
+        blocks: [
+          {
+            kind: "text",
+            heading: "Um sistema só, para tudo",
+            body: "Do cardápio numerado aos templates de delivery, passando por campanhas sazonais, lançamento de produto e conteúdo mais leve no estilo meme — tudo roda sobre o mesmo vermelho saturado, tipografia forte e fotografia de produto em close, então o feed lê como uma marca só, em qualquer ritmo.",
+          },
+          {
+            kind: "gallery",
+            images: [
+              { src: "/work/lanchonete-02.png", alt: "Lanchonete No Grau — Story de delivery", w: 1080, h: 1920 },
+              { src: "/work/lanchonete-03.png", alt: "Lanchonete No Grau — Promoção Dia do Amigo", w: 941, h: 1672 },
+              { src: "/work/lanchonete-04.png", alt: "Lanchonete No Grau — Dia Nacional do Pão de Queijo", w: 1080, h: 1920 },
+              { src: "/work/lanchonete-05.png", alt: "Lanchonete No Grau — Comunicado de feriado", w: 1080, h: 1920 },
+              { src: "/work/lanchonete-06.png", alt: "Lanchonete No Grau — Lançamento de sucos", w: 1080, h: 1920 },
+              { src: "/work/lanchonete-07.png", alt: "Lanchonete No Grau — Enquete \"qual coxinha você seria\"", w: 941, h: 1672 },
+              { src: "/work/lanchonete-08.png", alt: "Lanchonete No Grau — Story de checklist de sexta-feira", w: 941, h: 1672 },
+              { src: "/work/lanchonete-01.png", alt: "Lanchonete No Grau — Cardápio de salgados", w: 1024, h: 1536 },
             ],
           },
         ],

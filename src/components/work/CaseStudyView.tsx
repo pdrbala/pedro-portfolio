@@ -118,15 +118,16 @@ export function CaseStudyView({ slug }: { slug: string }) {
           if (block.kind === "gallery") {
             return (
               <Reveal key={i}>
-                <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
+                <div className="grid grid-cols-2 items-start gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
                   {block.images.map((img) => (
-                    <div key={img.src} className="relative aspect-video overflow-hidden bg-foreground/5">
+                    <div key={img.src} className="overflow-hidden bg-foreground/5">
                       <Image
                         src={asset(img.src)}
                         alt={img.alt}
-                        fill
+                        width={img.w}
+                        height={img.h}
                         sizes="(min-width: 1024px) 23vw, (min-width: 640px) 31vw, 48vw"
-                        className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.04]"
+                        className="h-auto w-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.04]"
                       />
                     </div>
                   ))}
