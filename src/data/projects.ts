@@ -24,6 +24,10 @@ export interface Project {
   featured: boolean;
   /** "collage" renders `gallery` as a multi-image teaser instead of a single cover image. */
   layout: "single" | "collage";
+  /** Grid shape for the homepage collage tile — defaults to a single row of 3. */
+  collageLayout?: "3x1" | "3x3";
+  /** Skip the case-study page's top hero image. */
+  hideCover?: boolean;
   gallery?: GalleryImage[];
   coverAlt: string;
   type: string;
@@ -58,6 +62,8 @@ const base = [
     coverH: 1080,
     featured: false,
     layout: "collage",
+    collageLayout: "3x3",
+    hideCover: true,
   },
   {
     slug: "eric-goncalves",
@@ -130,9 +136,14 @@ const content: Record<Lang, Record<Slug, Content>> = {
       description:
         "Commercial pitch deck and institutional presentation for GAO Contábeis — service ecosystem, customer onboarding workflow, and performance metrics.",
       gallery: [
+        { src: "/work/gao-pres-01.png", alt: "GAO — Presentation Title Slide", w: 1920, h: 1080 },
         { src: "/work/gao-pres-02.png", alt: "GAO — 360° Service Ecosystem", w: 1920, h: 1080 },
         { src: "/work/gao-pres-03.png", alt: "GAO — Onboarding Journey", w: 1920, h: 1080 },
+        { src: "/work/gao-pres-04.png", alt: "GAO — Transformative Goals", w: 1920, h: 1080 },
+        { src: "/work/gao-pres-05.png", alt: "GAO — Investment in People", w: 1920, h: 1080 },
+        { src: "/work/gao-pres-06.png", alt: "GAO — Employee Benefits Grid", w: 1920, h: 1080 },
         { src: "/work/gao-pres-07.png", alt: "GAO — Service Metrics", w: 1920, h: 1080 },
+        { src: "/work/gao-pres-08.png", alt: "GAO — Closing Contact Slide", w: 1920, h: 1080 },
       ],
       caseStudy: {
         intro:
@@ -281,9 +292,14 @@ const content: Record<Lang, Record<Slug, Content>> = {
       description:
         "Deck de apresentação comercial e institucional para a GAO Contábeis — diagramação de métricas, ecossistema de serviços, onboarding e relatórios corporativos.",
       gallery: [
+        { src: "/work/gao-pres-01.png", alt: "GAO — Capa da Apresentação", w: 1920, h: 1080 },
         { src: "/work/gao-pres-02.png", alt: "GAO — Ecossistema 360º", w: 1920, h: 1080 },
         { src: "/work/gao-pres-03.png", alt: "GAO — Onboarding", w: 1920, h: 1080 },
+        { src: "/work/gao-pres-04.png", alt: "GAO — Evoluir e Transformar Vidas", w: 1920, h: 1080 },
+        { src: "/work/gao-pres-05.png", alt: "GAO — Investimento em Pessoas", w: 1920, h: 1080 },
+        { src: "/work/gao-pres-06.png", alt: "GAO — Lista de Benefícios e Estrutura", w: 1920, h: 1080 },
         { src: "/work/gao-pres-07.png", alt: "GAO — Métricas de Atendimento", w: 1920, h: 1080 },
+        { src: "/work/gao-pres-08.png", alt: "GAO — Encerramento e Contato Comercial", w: 1920, h: 1080 },
       ],
       caseStudy: {
         intro:

@@ -7,7 +7,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { SplitTextReveal } from "@/components/motion/SplitTextReveal";
 import { useLang } from "@/i18n/LanguageProvider";
 import { getNextProject, getProject } from "@/data/projects";
-import { asset } from "@/lib/utils";
+import { asset, cn } from "@/lib/utils";
 
 export function CaseStudyView({ slug }: { slug: string }) {
   const { t, lang } = useLang();
@@ -82,19 +82,21 @@ export function CaseStudyView({ slug }: { slug: string }) {
       </header>
 
       {/* cover — natural ratio, no crop (portrait pages get centred) */}
-      <Reveal delay={0.15} className={coverPortrait ? "mx-auto mt-16 max-w-lg" : "-mx-5 mt-16 sm:-mx-10"}>
-        <Image
-          src={asset(project.cover)}
-          alt={project.coverAlt}
-          width={project.coverW}
-          height={project.coverH}
-          priority
-          sizes={coverPortrait ? "(min-width: 1024px) 32rem, 100vw" : "100vw"}
-          className="h-auto w-full bg-foreground/5"
-        />
-      </Reveal>
+      {!project.hideCover && (
+        <Reveal delay={0.15} className={coverPortrait ? "mx-auto mt-16 max-w-lg" : "-mx-5 mt-16 sm:-mx-10"}>
+          <Image
+            src={asset(project.cover)}
+            alt={project.coverAlt}
+            width={project.coverW}
+            height={project.coverH}
+            priority
+            sizes={coverPortrait ? "(min-width: 1024px) 32rem, 100vw" : "100vw"}
+            className="h-auto w-full bg-foreground/5"
+          />
+        </Reveal>
+      )}
 
-      <div className="mt-24 space-y-20 sm:space-y-32">
+      <div className={cn("space-y-20 sm:space-y-32", project.hideCover ? "mt-16" : "mt-24")}>
         {blocks.map(({ block, ordinal }, i) => {
           if (block.kind === "text") {
             return (

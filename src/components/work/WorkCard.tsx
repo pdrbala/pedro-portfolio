@@ -37,16 +37,24 @@ export function WorkCard({
           whileInView={reduced ? undefined : { clipPath: "inset(0% 0% 0% 0%)", scale: 1 }}
           viewport={{ once: true, margin: "-12% 0px" }}
           transition={{ duration: 1, ease: EASE }}
-          className="relative overflow-hidden bg-foreground/5 aspect-21/9 w-full"
+          className={cn(
+            "relative overflow-hidden bg-foreground/5 w-full",
+            project.collageLayout === "3x3" ? "aspect-square" : "aspect-21/9",
+          )}
         >
-          <div className="grid grid-cols-3 gap-2 bg-foreground/10 p-2 h-full">
-            {project.gallery.slice(0, 3).map((img) => (
+          <div
+            className={cn(
+              "grid gap-2 bg-foreground/10 p-2 h-full",
+              project.collageLayout === "3x3" ? "grid-cols-3 grid-rows-3" : "grid-cols-3",
+            )}
+          >
+            {project.gallery.slice(0, project.collageLayout === "3x3" ? 9 : 3).map((img) => (
               <div key={img.src} className="relative h-full w-full overflow-hidden">
                 <Image
                   src={asset(img.src)}
                   alt={img.alt}
                   fill
-                  sizes="(min-width: 768px) 30vw, 33vw"
+                  sizes={project.collageLayout === "3x3" ? "(min-width: 768px) 16vw, 33vw" : "(min-width: 768px) 30vw, 33vw"}
                   className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
                 />
               </div>
