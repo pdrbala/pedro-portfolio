@@ -113,6 +113,25 @@ export function CaseStudyView({ slug }: { slug: string }) {
               </Reveal>
             );
           }
+          if (block.kind === "gallery") {
+            return (
+              <Reveal key={i}>
+                <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
+                  {block.images.map((img) => (
+                    <div key={img.src} className="relative aspect-video overflow-hidden bg-foreground/5">
+                      <Image
+                        src={asset(img.src)}
+                        alt={img.alt}
+                        fill
+                        sizes="(min-width: 1024px) 23vw, (min-width: 640px) 31vw, 48vw"
+                        className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.04]"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+            );
+          }
           const portrait = block.h > block.w;
           return (
             <Reveal key={i} className={portrait ? "mx-auto max-w-md" : "-mx-5 sm:-mx-10"}>

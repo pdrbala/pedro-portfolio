@@ -2,7 +2,8 @@ import type { Lang } from "@/i18n/dictionaries";
 
 export type CaseBlock =
   | { kind: "text"; heading?: string; body: string }
-  | { kind: "image"; src: string; alt: string; w: number; h: number };
+  | { kind: "image"; src: string; alt: string; w: number; h: number }
+  | { kind: "gallery"; images: { src: string; alt: string; w: number; h: number }[] };
 
 /** One tile in a card's multi-image teaser (see `layout: "collage"`). */
 export interface GalleryImage {
@@ -144,24 +145,39 @@ const content: Record<Lang, Record<Slug, Content>> = {
             heading: "Brand Identity & 360º Service Ecosystem",
             body: "Clear visual hierarchy introducing the brand logo and mapping the 9 core accounting, tax, and legal business verticals.",
           },
-          { kind: "image", src: "/work/gao-pres-01.png", alt: "GAO — Presentation Title Slide", w: 1920, h: 1080 },
-          { kind: "image", src: "/work/gao-pres-02.png", alt: "GAO — 360º Service Ecosystem", w: 1920, h: 1080 },
+          {
+            kind: "gallery",
+            images: [
+              { src: "/work/gao-pres-01.png", alt: "GAO — Presentation Title Slide", w: 1920, h: 1080 },
+              { src: "/work/gao-pres-02.png", alt: "GAO — 360º Service Ecosystem", w: 1920, h: 1080 },
+            ],
+          },
           {
             kind: "text",
             heading: "Onboarding Workflow & Core Values",
             body: "A linear timeline guiding prospective clients through the 8 onboarding steps from contract signature to fiscal monitoring.",
           },
-          { kind: "image", src: "/work/gao-pres-03.png", alt: "GAO — Onboarding Journey", w: 1920, h: 1080 },
-          { kind: "image", src: "/work/gao-pres-04.png", alt: "GAO — Transformative Goals", w: 1920, h: 1080 },
+          {
+            kind: "gallery",
+            images: [
+              { src: "/work/gao-pres-03.png", alt: "GAO — Onboarding Journey", w: 1920, h: 1080 },
+              { src: "/work/gao-pres-04.png", alt: "GAO — Transformative Goals", w: 1920, h: 1080 },
+            ],
+          },
           {
             kind: "text",
             heading: "Organizational Benefits & Performance Numbers",
             body: "Visualizing key performance indicators, client support volumes, and employee benefit programs.",
           },
-          { kind: "image", src: "/work/gao-pres-05.png", alt: "GAO — Investment in People", w: 1920, h: 1080 },
-          { kind: "image", src: "/work/gao-pres-06.png", alt: "GAO — Employee Benefits Grid", w: 1920, h: 1080 },
-          { kind: "image", src: "/work/gao-pres-07.png", alt: "GAO — Service Metrics", w: 1920, h: 1080 },
-          { kind: "image", src: "/work/gao-pres-08.png", alt: "GAO — Closing Contact Slide", w: 1920, h: 1080 },
+          {
+            kind: "gallery",
+            images: [
+              { src: "/work/gao-pres-05.png", alt: "GAO — Investment in People", w: 1920, h: 1080 },
+              { src: "/work/gao-pres-06.png", alt: "GAO — Employee Benefits Grid", w: 1920, h: 1080 },
+              { src: "/work/gao-pres-07.png", alt: "GAO — Service Metrics", w: 1920, h: 1080 },
+              { src: "/work/gao-pres-08.png", alt: "GAO — Closing Contact Slide", w: 1920, h: 1080 },
+            ],
+          },
         ],
       },
     },
@@ -280,24 +296,39 @@ const content: Record<Lang, Record<Slug, Content>> = {
             heading: "Identidade & Ecossistema de Serviços 360º",
             body: "Estrutura visual limpa apresentando a marca GAO e mapeamento infográfico circular das 9 soluções contábeis e fiscais.",
           },
-          { kind: "image", src: "/work/gao-pres-01.png", alt: "GAO — Capa da Apresentação", w: 1920, h: 1080 },
-          { kind: "image", src: "/work/gao-pres-02.png", alt: "GAO — Ecossistema 360º", w: 1920, h: 1080 },
+          {
+            kind: "gallery",
+            images: [
+              { src: "/work/gao-pres-01.png", alt: "GAO — Capa da Apresentação", w: 1920, h: 1080 },
+              { src: "/work/gao-pres-02.png", alt: "GAO — Ecossistema 360º", w: 1920, h: 1080 },
+            ],
+          },
           {
             kind: "text",
             heading: "Jornada de Onboarding & Valores Corporativos",
             body: "Linha do tempo passo a passo demonstrando o fluxo de onboarding do cliente e o posicionamento de transformação da empresa.",
           },
-          { kind: "image", src: "/work/gao-pres-03.png", alt: "GAO — Onboarding de Sucesso", w: 1920, h: 1080 },
-          { kind: "image", src: "/work/gao-pres-04.png", alt: "GAO — Evoluir e Transformar Vidas", w: 1920, h: 1080 },
+          {
+            kind: "gallery",
+            images: [
+              { src: "/work/gao-pres-03.png", alt: "GAO — Onboarding de Sucesso", w: 1920, h: 1080 },
+              { src: "/work/gao-pres-04.png", alt: "GAO — Evoluir e Transformar Vidas", w: 1920, h: 1080 },
+            ],
+          },
           {
             kind: "text",
             heading: "Métricas de Performance & Benefícios",
             body: "Diagramação de indicadores de atendimento, volume de obrigações entregues e cartões de benefícios organizacionais.",
           },
-          { kind: "image", src: "/work/gao-pres-05.png", alt: "GAO — Investimento em Pessoas", w: 1920, h: 1080 },
-          { kind: "image", src: "/work/gao-pres-06.png", alt: "GAO — Lista de Benefícios e Estrutura", w: 1920, h: 1080 },
-          { kind: "image", src: "/work/gao-pres-07.png", alt: "GAO — Métricas de Atendimento e Entregas", w: 1920, h: 1080 },
-          { kind: "image", src: "/work/gao-pres-08.png", alt: "GAO — Encerramento e Contato Comercial", w: 1920, h: 1080 },
+          {
+            kind: "gallery",
+            images: [
+              { src: "/work/gao-pres-05.png", alt: "GAO — Investimento em Pessoas", w: 1920, h: 1080 },
+              { src: "/work/gao-pres-06.png", alt: "GAO — Lista de Benefícios e Estrutura", w: 1920, h: 1080 },
+              { src: "/work/gao-pres-07.png", alt: "GAO — Métricas de Atendimento e Entregas", w: 1920, h: 1080 },
+              { src: "/work/gao-pres-08.png", alt: "GAO — Encerramento e Contato Comercial", w: 1920, h: 1080 },
+            ],
+          },
         ],
       },
     },
