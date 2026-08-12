@@ -35,38 +35,19 @@ export function WorkGrid() {
             className="group grid gap-8 border-t border-foreground pt-6 md:grid-cols-12 md:gap-12"
           >
             <div className="relative overflow-hidden bg-foreground/5 md:col-span-6">
-              {featured.slug === "gao-contabeis" ? (
+              {featured.layout === "collage" && featured.gallery ? (
                 <div className="grid grid-cols-2 gap-2 bg-foreground/10 p-2">
-                  <Image
-                    src={asset("/work/gao-01.jpg")}
-                    alt="GAO Contábeis — Post 1"
-                    width={540}
-                    height={675}
-                    priority
-                    className="h-auto w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
-                  />
-                  <Image
-                    src={asset("/work/gao-02.jpg")}
-                    alt="GAO Contábeis — Post 2"
-                    width={540}
-                    height={675}
-                    priority
-                    className="h-auto w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
-                  />
-                  <Image
-                    src={asset("/work/gao-03.jpg")}
-                    alt="GAO Contábeis — Post 3"
-                    width={540}
-                    height={675}
-                    className="h-auto w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
-                  />
-                  <Image
-                    src={asset("/work/gao-04.jpg")}
-                    alt="GAO Contábeis — Post 4"
-                    width={540}
-                    height={675}
-                    className="h-auto w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
-                  />
+                  {featured.gallery.map((img, i) => (
+                    <Image
+                      key={img.src}
+                      src={asset(img.src)}
+                      alt={img.alt}
+                      width={img.w}
+                      height={img.h}
+                      priority={i < 2}
+                      className="h-auto w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
+                    />
+                  ))}
                 </div>
               ) : (
                 <Image
@@ -104,9 +85,9 @@ export function WorkGrid() {
           <WorkCard
             key={project.slug}
             project={project}
-            className={project.slug === "gao-apresentacao" ? "md:col-span-2" : undefined}
+            className={project.layout === "collage" ? "md:col-span-2" : undefined}
             aspectClass={
-              project.slug === "gao-apresentacao"
+              project.layout === "collage"
                 ? "aspect-21/9"
                 : project.coverH > project.coverW
                 ? "aspect-3/4"

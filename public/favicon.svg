@@ -1,0 +1,11 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#ECE8DF" />
+  <!-- Red top accent rule -->
+  <rect x="0" y="0" width="512" height="24" fill="#E10600" />
+  <!-- Border -->
+  <rect x="0" y="0" width="512" height="512" fill="none" stroke="#141210" stroke-width="28" />
+  <!-- PG Monogram -->
+  <text x="64" y="350" font-family="'Space Grotesk', 'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="280" fill="#141210" letter-spacing="-12">PG</text>
+  <!-- Red accent square dot -->
+  <rect x="400" y="284" width="48" height="48" fill="#E10600" />
+</svg>

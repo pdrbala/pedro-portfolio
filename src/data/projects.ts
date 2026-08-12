@@ -4,6 +4,14 @@ export type CaseBlock =
   | { kind: "text"; heading?: string; body: string }
   | { kind: "image"; src: string; alt: string; w: number; h: number };
 
+/** One tile in a card's multi-image teaser (see `layout: "collage"`). */
+export interface GalleryImage {
+  src: string;
+  alt: string;
+  w: number;
+  h: number;
+}
+
 export interface Project {
   slug: string;
   index: string;
@@ -13,6 +21,9 @@ export interface Project {
   coverW: number;
   coverH: number;
   featured: boolean;
+  /** "collage" renders `gallery` as a multi-image teaser instead of a single cover image. */
+  layout: "single" | "collage";
+  gallery?: GalleryImage[];
   coverAlt: string;
   type: string;
   tags: string[];
@@ -35,6 +46,7 @@ const base = [
     coverW: 1080,
     coverH: 1350,
     featured: true,
+    layout: "collage",
   },
   {
     slug: "gao-apresentacao",
@@ -44,6 +56,7 @@ const base = [
     coverW: 1920,
     coverH: 1080,
     featured: false,
+    layout: "collage",
   },
   {
     slug: "eric-goncalves",
@@ -53,6 +66,7 @@ const base = [
     coverW: 1219,
     coverH: 820,
     featured: false,
+    layout: "single",
   },
   {
     slug: "costa-costa",
@@ -62,12 +76,13 @@ const base = [
     coverW: 1600,
     coverH: 883,
     featured: false,
+    layout: "single",
   },
 ] as const;
 
 type Slug = (typeof base)[number]["slug"];
 
-type Content = Pick<Project, "title" | "coverAlt" | "type" | "tags" | "description" | "caseStudy">;
+type Content = Pick<Project, "title" | "coverAlt" | "type" | "tags" | "description" | "caseStudy" | "gallery">;
 
 const content: Record<Lang, Record<Slug, Content>> = {
   en: {
@@ -78,6 +93,12 @@ const content: Record<Lang, Record<Slug, Content>> = {
       tags: ["Social Media", "Graphic Design", "Editorial"],
       description:
         "Strategic social media design system for an accounting firm — high-impact typography, editorial layouts and targeted business communications.",
+      gallery: [
+        { src: "/work/gao-01.jpg", alt: "GAO Contábeis — Social post 1", w: 1080, h: 1350 },
+        { src: "/work/gao-02.jpg", alt: "GAO Contábeis — Social post 2", w: 1080, h: 1350 },
+        { src: "/work/gao-03.jpg", alt: "GAO Contábeis — Social post 3", w: 1080, h: 1350 },
+        { src: "/work/gao-04.jpg", alt: "GAO Contábeis — Social post 4", w: 1080, h: 1350 },
+      ],
       caseStudy: {
         intro:
           "A series of editorial social media posts created for GAO Contábeis. The strategy combines elegant serif headlines, strong corporate imagery, and concise financial messaging to elevate the brand's visual positioning.",
@@ -107,6 +128,11 @@ const content: Record<Lang, Record<Slug, Content>> = {
       tags: ["Presentation", "Slide Deck", "Corporate", "Infographics"],
       description:
         "Commercial pitch deck and institutional presentation for GAO Contábeis — service ecosystem, customer onboarding workflow, and performance metrics.",
+      gallery: [
+        { src: "/work/gao-pres-02.png", alt: "GAO — 360° Service Ecosystem", w: 1920, h: 1080 },
+        { src: "/work/gao-pres-03.png", alt: "GAO — Onboarding Journey", w: 1920, h: 1080 },
+        { src: "/work/gao-pres-07.png", alt: "GAO — Service Metrics", w: 1920, h: 1080 },
+      ],
       caseStudy: {
         intro:
           "Full corporate slide deck designed for client proposals, pitch meetings, and internal reporting. Features a custom 360º ecosystem diagram, onboarding timeline, and data visualization cards.",
@@ -203,6 +229,12 @@ const content: Record<Lang, Record<Slug, Content>> = {
       tags: ["Social Media", "Design Gráfico", "Editorial"],
       description:
         "Design de posts e comunicação estratégica para contabilidade — tipografia editorial de alto impacto e direção de conteúdo de negócios.",
+      gallery: [
+        { src: "/work/gao-01.jpg", alt: "GAO Contábeis — Post 1", w: 1080, h: 1350 },
+        { src: "/work/gao-02.jpg", alt: "GAO Contábeis — Post 2", w: 1080, h: 1350 },
+        { src: "/work/gao-03.jpg", alt: "GAO Contábeis — Post 3", w: 1080, h: 1350 },
+        { src: "/work/gao-04.jpg", alt: "GAO Contábeis — Post 4", w: 1080, h: 1350 },
+      ],
       caseStudy: {
         intro:
           "Série de posts conceituais desenvolvida para a GAO Contábeis. A proposta une títulos tipográficos elegantes, fotografia corporativa e redação direta sobre desafios financeiros reais.",
@@ -232,6 +264,11 @@ const content: Record<Lang, Record<Slug, Content>> = {
       tags: ["Apresentação", "Proposta Comercial", "Métricas", "Slide Deck"],
       description:
         "Deck de apresentação comercial e institucional para a GAO Contábeis — diagramação de métricas, ecossistema de serviços, onboarding e relatórios corporativos.",
+      gallery: [
+        { src: "/work/gao-pres-02.png", alt: "GAO — Ecossistema 360º", w: 1920, h: 1080 },
+        { src: "/work/gao-pres-03.png", alt: "GAO — Onboarding", w: 1920, h: 1080 },
+        { src: "/work/gao-pres-07.png", alt: "GAO — Métricas de Atendimento", w: 1920, h: 1080 },
+      ],
       caseStudy: {
         intro:
           "Sistema completo de apresentação comercial e institucional para a GAO Contábeis. Desenvolvido para reuniões com clientes e propostas de alto valor, apresentando métricas de atendimento, onboarding funcional e visão ecossistêmica 360º.",
@@ -301,8 +338,8 @@ const content: Record<Lang, Record<Slug, Content>> = {
       caseStudy: {
         intro:
           "Contabilidade não precisa ser fria. Costa & Costa ganha uma paleta terracota e um monograma ‘C’ em meia-lua — acessível, mas preciso.",
-        role: "Brand identity, logo, papelaria",
-        deliverables: ["Monogram", "Logo system", "Stationery", "Mockups"],
+        role: "Identidade de marca, logo, papelaria",
+        deliverables: ["Monograma", "Sistema de logo", "Papelaria", "Mockups"],
         blocks: [
           {
             kind: "text",
