@@ -147,7 +147,7 @@ export function MotionShowcase() {
               className={cn(
                 "relative w-full overflow-hidden bg-black",
                 active.orientation === "portrait"
-                  ? "aspect-[9/16] max-h-[88vh] w-auto sm:max-w-[min(440px,46vw)]"
+                  ? "aspect-[9/16] max-h-[88vh] sm:max-w-[min(440px,46vw)]"
                   : "aspect-video max-w-5xl",
               )}
             >

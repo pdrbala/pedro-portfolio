@@ -1,7 +1,7 @@
 "use client";
 
 import { Maximize2, Pause, Play, Volume2, VolumeX } from "lucide-react";
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type MouseEvent } from "react";
 import { cn } from "@/lib/utils";
 
 function fmt(s: number) {
@@ -29,6 +29,7 @@ export function VideoPlayer({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [volume, setVolume] = useState(1);
   const [time, setTime] = useState(0);
   const [dur, setDur] = useState(0);
 
@@ -39,7 +40,10 @@ export function VideoPlayer({
     const onMeta = () => setDur(v.duration);
     const onPlay = () => setPlaying(true);
     const onPause = () => setPlaying(false);
-    const onVol = () => setMuted(v.muted);
+    const onVol = () => {
+      setMuted(v.muted);
+      setVolume(v.volume);
+    };
     v.addEventListener("timeupdate", onTime);
     v.addEventListener("loadedmetadata", onMeta);
     v.addEventListener("play", onPlay);
@@ -69,6 +73,13 @@ export function VideoPlayer({
     const v = videoRef.current;
     if (!v) return;
     v.muted = !v.muted;
+  }
+  function onVolumeInput(e: ChangeEvent<HTMLInputElement>) {
+    const v = videoRef.current;
+    if (!v) return;
+    const val = Number(e.target.value);
+    v.volume = val;
+    v.muted = val === 0;
   }
   function seek(e: MouseEvent<HTMLDivElement>) {
     const v = videoRef.current;
@@ -119,9 +130,21 @@ export function VideoPlayer({
         <span className="shrink-0 font-mono text-[11px] tabular-nums text-white/80">
           {fmt(time)} / {fmt(dur)}
         </span>
-        <button type="button" onClick={toggleMute} aria-label={muted ? "Unmute" : "Mute"} className="shrink-0 text-white transition-colors hover:text-accent">
-          {muted ? <VolumeX size={17} /> : <Volume2 size={17} />}
-        </button>
+        <div className="flex shrink-0 items-center gap-2">
+          <button type="button" onClick={toggleMute} aria-label={muted ? "Unmute" : "Mute"} className="shrink-0 text-white transition-colors hover:text-accent">
+            {muted ? <VolumeX size={17} /> : <Volume2 size={17} />}
+          </button>
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.01}
+            value={muted ? 0 : volume}
+            onChange={onVolumeInput}
+            aria-label="Volume"
+            className="h-1 w-16 cursor-pointer appearance-none bg-white/25 accent-accent [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-none [&::-webkit-slider-thumb]:bg-accent [&::-moz-range-thumb]:h-3 [&::-moz-range-thumb]:w-3 [&::-moz-range-thumb]:rounded-none [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-accent"
+          />
+        </div>
         <button type="button" onClick={fullscreen} aria-label="Fullscreen" className="shrink-0 text-white transition-colors hover:text-accent">
           <Maximize2 size={16} />
         </button>
