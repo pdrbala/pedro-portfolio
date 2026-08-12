@@ -39,7 +39,7 @@ export function WorkCard({
           transition={{ duration: 1, ease: EASE }}
           className={cn(
             "relative overflow-hidden bg-foreground/5 w-full",
-            project.collageLayout === "3x3" ? "aspect-square" : "aspect-21/9",
+            project.collageLayout === "3x3" ? "aspect-video" : "aspect-21/9",
           )}
         >
           <div
