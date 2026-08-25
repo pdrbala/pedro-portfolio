@@ -62,7 +62,7 @@ function Card({
         <span className="label text-foreground">{item.year}</span>
         <span className="label truncate text-muted">{item.type}</span>
       </div>
-      <div className={cn("relative overflow-hidden bg-foreground/10", feature ? "aspect-video" : "aspect-[9/16]")}>
+      <div className={cn("relative overflow-hidden bg-foreground/10", feature || item.orientation === "landscape" ? "aspect-video" : "aspect-[9/16]")}>
         <VideoLoop item={item} />
         <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-foreground/25 to-transparent opacity-50" />
       </div>

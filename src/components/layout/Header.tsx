@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import { useState, type MouseEvent } from "react";
 import { useLenis } from "@/components/providers/SmoothScrollProvider";
 import { MobileMenu } from "@/components/layout/MobileMenu";
+import { LangToggle } from "@/components/ui/LangToggle";
 import { useLang } from "@/i18n/LanguageProvider";
 
 export const NAV = [
@@ -16,19 +17,19 @@ export const NAV = [
 export function Header() {
   const pathname = usePathname();
   const lenis = useLenis();
-  const { t, setLang } = useLang();
+  const { t } = useLang();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Two coupled worlds: EN/Motion (/motion) and PT/Editorial (/).
-  // The cross-link switches BOTH language and world at once.
-  const onMotion = pathname.startsWith("/motion");
-  const cross = onMotion
-    ? { href: "/", label: "Graphic Design", lang: "pt" as const }
-    : { href: "/motion", label: "Motion", lang: "en" as const };
+  // Two decoupled worlds: Motion (/) and Editorial/Design (/design + /work cases).
+  // Language is independent — the cross-link only changes world.
+  const onDesign = pathname.startsWith("/design") || pathname.startsWith("/work");
+  const cross = onDesign
+    ? { href: "/", label: "Motion" }
+    : { href: "/design", label: "Graphic Design" };
 
   function goTo(e: MouseEvent<HTMLAnchorElement>, hash: string) {
     setMenuOpen(false);
-    if (pathname !== "/") return; // navigate to /#hash normally
+    if (pathname !== "/design") return; // navigate to /design#hash normally
     const el = document.querySelector<HTMLElement>(hash);
     if (!el) return;
     e.preventDefault();
@@ -42,7 +43,7 @@ export function Header() {
         <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-accent" />
         <div className="flex items-stretch justify-between border-b border-foreground">
           <Link
-            href={onMotion ? "/motion" : "/"}
+            href="/"
             className="label flex items-center gap-2 border-r border-foreground px-5 py-4 font-bold text-foreground sm:px-8"
             aria-label="Pedro Guilherme — home"
           >
@@ -52,11 +53,11 @@ export function Header() {
 
           <div className="flex items-stretch">
             <nav aria-label="Primary" className="hidden items-stretch md:flex">
-              {!onMotion &&
+              {onDesign &&
                 NAV.map((link, i) => (
                   <Link
                     key={link.hash}
-                    href={`/${link.hash}`}
+                    href={`/design${link.hash}`}
                     onClick={(e) => goTo(e, link.hash)}
                     className="label group flex items-center gap-2 border-l border-hairline px-6 text-muted transition-colors hover:bg-foreground hover:text-background"
                   >
@@ -66,9 +67,11 @@ export function Header() {
                     {t.nav[link.key]}
                   </Link>
                 ))}
+              <span className="hidden items-center border-l border-hairline px-6 lg:flex">
+                <LangToggle />
+              </span>
               <Link
                 href={cross.href}
-                onClick={() => setLang(cross.lang)}
                 className="label group flex items-center gap-1.5 border-l border-foreground px-6 text-accent transition-colors hover:bg-accent hover:text-background"
               >
                 {cross.label}

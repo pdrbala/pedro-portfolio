@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { useEffect, type MouseEvent } from "react";
 import { NAV } from "@/components/layout/Header";
+import { LangToggle } from "@/components/ui/LangToggle";
 import { useLang } from "@/i18n/LanguageProvider";
 import { email, socials } from "@/data/socials";
 
@@ -20,12 +21,13 @@ export function MobileMenu({
   onNavigate: (e: MouseEvent<HTMLAnchorElement>, hash: string) => void;
   onClose: () => void;
 }) {
-  const { t, setLang } = useLang();
+  const { t } = useLang();
   const pathname = usePathname();
-  const onMotion = pathname.startsWith("/motion");
-  const cross = onMotion
-    ? { href: "/", label: "Graphic Design", lang: "pt" as const }
-    : { href: "/motion", label: "Motion", lang: "en" as const };
+  // worlds decoupled from language: Motion (/) ↔ Design (/design + /work)
+  const onDesign = pathname.startsWith("/design") || pathname.startsWith("/work");
+  const cross = onDesign
+    ? { href: "/", label: "Motion" }
+    : { href: "/design", label: "Graphic Design" };
 
   useEffect(() => {
     if (!open) return;
@@ -53,15 +55,12 @@ export function MobileMenu({
         >
           <nav aria-label="Mobile">
             <ul>
-              {/* the big cross-link to the other world (switches language too) */}
+              {/* the big cross-link to the other world */}
               <li className="overflow-hidden border-t border-foreground">
                 <motion.div initial={{ y: "100%" }} animate={{ y: "0%" }} transition={{ duration: 0.5, ease: EASE }}>
                   <Link
                     href={cross.href}
-                    onClick={() => {
-                      setLang(cross.lang);
-                      onClose();
-                    }}
+                    onClick={onClose}
                     className="display flex items-baseline gap-4 py-4 text-[clamp(3rem,16vw,5.5rem)] text-accent"
                   >
                     {cross.label}
@@ -70,16 +69,14 @@ export function MobileMenu({
                 </motion.div>
               </li>
               {/* editorial nav only in the editorial world */}
-              {!onMotion &&
+              {onDesign &&
                 NAV.map((link, i) => (
                   <li key={link.hash} className="overflow-hidden border-t border-foreground last:border-b">
                     <motion.div
-                      initial={{ y: "100%" }}
-                      animate={{ y: "0%" }}
-                      transition={{ duration: 0.5, delay: 0.06 * (i + 1), ease: EASE }}
+                      initial={{ y: "100%" }} animate={{ y: "0%" }} transition={{ duration: 0.5, delay: 0.06 * (i + 1), ease: EASE }}
                     >
                       <Link
-                        href={`/${link.hash}`}
+                        href={`/design${link.hash}`}
                         onClick={(e) => onNavigate(e, link.hash)}
                         className="display flex items-baseline gap-4 py-4 text-[clamp(3rem,16vw,5.5rem)] text-foreground"
                       >
@@ -93,6 +90,7 @@ export function MobileMenu({
           </nav>
 
           <div className="flex flex-col gap-5">
+            <LangToggle />
             <a href={`mailto:${email}`} className="label text-foreground underline underline-offset-4">
               {email}
             </a>

@@ -2,7 +2,6 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useLang } from "@/i18n/LanguageProvider";
@@ -36,7 +35,6 @@ function FlagChip({ lang }: { lang: Lang }) {
 export function Intro({ children }: { children: ReactNode }) {
   const { chosen, mounted, setLang, suggested, t } = useLang();
   const reduced = useReducedMotion();
-  const router = useRouter();
   const open = !chosen; // covers pre-mount + first visit
 
   useEffect(() => {
@@ -48,8 +46,7 @@ export function Intro({ children }: { children: ReactNode }) {
 
   function choose(l: Lang) {
     setLang(l);
-    // English = the motion world; Portuguese = the editorial home
-    if (l === "en") router.push("/motion");
+    // worlds are decoupled from language now — both choices stay on the current page
   }
 
   const allRows: { lang: Lang; word: string; name: string }[] = [

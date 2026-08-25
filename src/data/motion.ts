@@ -22,6 +22,7 @@ const base = [
   { slug: "motion-graphics", src: "/work/motion-v2.mp4", poster: "/work/motion-v2.jpg", orientation: "portrait", featured: false, year: "2025" },
   { slug: "fashion", src: "/work/motion-v4.mp4", poster: "/work/motion-v4.jpg", orientation: "portrait", featured: false, year: "2025" },
   { slug: "aerial", src: "/work/motion-v5.mp4", poster: "/work/motion-v5.jpg", orientation: "portrait", featured: false, year: "2025" },
+  { slug: "carne-premium", src: "/work/motion-v6.mp4", poster: "/work/motion-v6.jpg", orientation: "landscape", featured: false, year: "2026" },
 ] as const;
 
 type Slug = (typeof base)[number]["slug"];
@@ -33,6 +34,7 @@ const content: Record<Lang, Record<Slug, { title: string; type: string }>> = {
     "motion-graphics": { title: "Kinetic Lines", type: "Motion graphics" },
     fashion: { title: "Fashion Film", type: "Fashion / Lifestyle" },
     aerial: { title: "Aerial — City", type: "Drone / Aerial" },
+    "carne-premium": { title: "Carne Premium", type: "Food / Product film" },
   },
   pt: {
     showreel: { title: "Showreel", type: "Edição / Reel" },
@@ -40,6 +42,7 @@ const content: Record<Lang, Record<Slug, { title: string; type: string }>> = {
     "motion-graphics": { title: "Linhas Cinéticas", type: "Motion graphics" },
     fashion: { title: "Fashion Film", type: "Moda / Lifestyle" },
     aerial: { title: "Aéreo — Cidade", type: "Drone / Aéreo" },
+    "carne-premium": { title: "Carne Premium", type: "Filme food / produto" },
   },
 };
 

@@ -1,11 +1,23 @@
-import type { Metadata } from "next";
-import { MotionShowcase } from "@/components/motion/MotionShowcase";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Motion",
-  description: "Selected video and motion work by Pedro Guilherme.",
-};
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-export default function MotionPage() {
-  return <MotionShowcase />;
+/** Legacy /motion route — the motion world now lives at "/". */
+export default function MotionRedirect() {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace("/");
+  }, [router]);
+
+  return (
+    <Link
+      href="/"
+      className="label flex min-h-[70vh] items-center justify-center text-muted underline underline-offset-4 transition-colors hover:text-accent"
+    >
+      Pedro Guilherme® — home
+    </Link>
+  );
 }
