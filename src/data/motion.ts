@@ -22,7 +22,7 @@ const base = [
   { slug: "motion-graphics", src: "/work/motion-v2.mp4", poster: "/work/motion-v2.jpg", orientation: "portrait", featured: false, year: "2025" },
   { slug: "fashion", src: "/work/motion-v4.mp4", poster: "/work/motion-v4.jpg", orientation: "portrait", featured: false, year: "2025" },
   { slug: "aerial", src: "/work/motion-v5.mp4", poster: "/work/motion-v5.jpg", orientation: "portrait", featured: false, year: "2025" },
-  { slug: "carne-premium", src: "/work/motion-v6.mp4", poster: "/work/motion-v6.jpg", orientation: "landscape", featured: false, year: "2026" },
+  { slug: "carne-premium", src: "/work/motion-v6.mp4", poster: "/work/motion-v6.jpg", orientation: "landscape", featured: true, year: "2026" },
 ] as const;
 
 type Slug = (typeof base)[number]["slug"];

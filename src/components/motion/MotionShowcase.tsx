@@ -78,7 +78,7 @@ function Card({
 export function MotionShowcase() {
   const { t, lang } = useLang();
   const items = getMotion(lang);
-  const feature = items.find((i) => i.featured);
+  const features = items.filter((i) => i.featured);
   const rest = items.filter((i) => !i.featured);
   const [active, setActive] = useState<MotionItem | null>(null);
 
@@ -103,11 +103,11 @@ export function MotionShowcase() {
         <p className="heading max-w-2xl text-[clamp(1.4rem,3vw,2.4rem)] text-foreground">{t.motion.lead}</p>
       </Reveal>
 
-      {feature && (
-        <Reveal className="mt-12 md:mt-16">
-          <Card item={feature} feature onOpen={setActive} />
+      {features.map((item, i) => (
+        <Reveal key={item.slug} className={cn(i === 0 ? "mt-12 md:mt-16" : "mt-6 md:mt-10")}>
+          <Card item={item} feature onOpen={setActive} />
         </Reveal>
-      )}
+      ))}
 
       {/* verticals, 2-up, width-capped so they don't get huge */}
       <div className="mx-auto mt-14 grid max-w-3xl grid-cols-2 gap-x-6 gap-y-12 md:mt-20 md:gap-x-10">
