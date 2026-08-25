@@ -104,7 +104,13 @@ export function MotionShowcase() {
       </Reveal>
 
       {features.map((item, i) => (
-        <Reveal key={item.slug} className={cn(i === 0 ? "mt-12 md:mt-16" : "mt-6 md:mt-10")}>
+        <Reveal
+          key={item.slug}
+          className={cn(
+            "mx-auto w-full md:w-4/5",
+            i === 0 ? "mt-12 md:mt-16" : "mt-6 md:mt-10",
+          )}
+        >
           <Card item={item} feature onOpen={setActive} />
         </Reveal>
       ))}
